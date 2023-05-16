@@ -44,8 +44,8 @@
 
     <!-- Content -->
     <div class="relative">
-        <h1 class="text-2xl md:text-3xl text-slate-800 font-bold mb-1">Good afternoon, {{ Auth::user()->name }} 👋</h1>
-        <p>Here is what's happening with your projects today:</p>
+        <h1 class="text-2xl md:text-3xl text-slate-800 font-bold mb-1">Hola! {{ Auth::user()->name }} 👋</h1>
+        <p>Esto es lo que está sucediendo con sus formularios hoy:</p>
     </div>
 
 </div>
