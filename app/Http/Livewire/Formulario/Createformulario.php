@@ -23,8 +23,8 @@ class Createformulario extends Component
 
     public function submit(){
         $validatedDate = $this->validate([
-            'nombre' => "required|min:2|max:10",
-            'descripcion' => "required|min:2|max:10",
+            'nombre' => "required|min:2",
+            'descripcion' => "min:2",
             /* 'img' => 'image|max:2000', */
         ]);
         $prueba = $this->img;

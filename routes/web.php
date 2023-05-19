@@ -16,7 +16,7 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::redirect('/', 'login');
+Route::get('/', [AddformulariosController::class, 'indexmain'])->name('index');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
