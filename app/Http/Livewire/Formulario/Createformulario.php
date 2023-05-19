@@ -27,17 +27,20 @@ class Createformulario extends Component
             'descripcion' => "min:2",
             /* 'img' => 'image|max:2000', */
         ]);
-        $prueba = $this->img;
+
         if($this->img != null){            
             $imageName = $this->img->store("images",'public');
             $validatedDate['img'] = $imageName;
         }else{
             $validatedDate['img'] = "";
-        }
-        
-        
+        }                        
+        $nomformularios = $validatedDate['nombre'];
+
         addformularios::create($validatedDate);
-        return redirect('addformulario')->with('varsession', 'Formulario Agregado');
+
+        toastr()->success('¡Creado correctamente!', $nomformularios);
+        
+        return redirect('addformulario');
     }
     public function render()
     {

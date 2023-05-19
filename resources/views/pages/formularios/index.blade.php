@@ -7,9 +7,6 @@
         @livewire('formulario.createformulario')
         
         {{-- MUESTRA LOS PROYECTOS EN CARDS CON LIVEWIRE --}}
-        @livewire('formulario.showformulario')
-        
-        @if (session('varsession'))
-        @endif
+        @livewire('formulario.showformulario')            
     </div>
 </x-app-layout>
