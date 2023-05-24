@@ -43,7 +43,7 @@
 
     <!-- Content -->
     <div class="relative">
-        <h1 class="mb-1 text-2xl font-bold md:text-3xl text-slate-800">MODULO DE CREACION DE FORMULARIOS 👋</h1>
+        <h1 class="mb-1 text-2xl font-bold md:text-3xl text-slate-800">MODULO DE CREACION DE FORMULARIOS 👋 </h1>
         {{-- <p>Esto es lo que está sucediendo con sus formularios hoy:</p> --}}
     </div>   
     <div class="relative">
