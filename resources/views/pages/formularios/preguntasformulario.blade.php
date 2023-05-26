@@ -48,7 +48,7 @@
                     <strong>{{ $nombre }}</strong> </h1>
             </div>
         </div>
-        <div class="relative p-4 mb-8 overflow-hidden bg-indigo-200 rounded-sm sm:p-6">
+        <div class="relative p-4 mb-8 overflow-hidden bg-indigo-400 rounded-sm sm:p-6">
             @livewire('formulario.creaciondepreguntas', ['idformulario' => $id])
         </div>
     </div>

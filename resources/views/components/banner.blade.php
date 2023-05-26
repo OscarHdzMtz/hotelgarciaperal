@@ -5,7 +5,7 @@
                 <h3 class="mb-1 text-2xl font-bold text-white">
                     <span class="text-green-300">Nombre</span>
                     <x-jet-input
-                        class="text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="text-sm text-gray-900 border border-blue-400 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500{{--  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 --}}"
                         wire:model="nombreInput" value="{{ $nameImg[0]['nombre'] }}" />
                 </h3>
                 {{-- <p class="mb-8 text-sm font-medium text-indigo-100 md:mb-16">{{ $nameImg[0]['descripcion'] }}</p>
@@ -16,7 +16,7 @@
                     <label class="text-green-300">Descripcion</label>
                 </h3>
                 <textarea id="message" rows="4"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-blue-400 focus:ring-blue-500 focus:border-blue-500 {{-- dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 --}}"
                     wire:model="descripcionInput" value="{{ $nameImg[0]['descripcion'] }}"></textarea>
 
                 <a class="flex items-center mt-5 font-medium text-white" href="#">
@@ -29,8 +29,13 @@
                     <span>Vista previa</span>
                 </a>
             </div>
-            <div class="flex items-center w-full md:w-3/4">
+            <div class="items-center w-full md:w-3/4">
                 <img class="{{-- h-48  --}}mx-auto" src="{{ asset('storage/' . $nameImg[0]['img']) }}" alt="">
+                <div class="">
+                    <label for="exampleInputName" class="text-gray-900">actualizar imagen</label>
+                    <input type="file" class="form-control" id="exampleInputName" wire:model="imgformulario">
+                    @error('img') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
             </div>
         </div>
     </div>

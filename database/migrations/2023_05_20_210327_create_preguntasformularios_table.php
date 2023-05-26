@@ -16,19 +16,19 @@ return new class extends Migration
         Schema::create('preguntasformularios', function (Blueprint $table) {
             $table->id();
             $table->integer("formulario_id");
-            $table->longText("pregunta");
-            $table->longText("tipodecomponente");
-            $table->integer("numerodecomponente");
-            $table->string("valordecomponente");
-            $table->boolean("campoobligatorio");
-            $table->integer("ordenpreguntas");
-            $table->integer("ordencomponentes");
-            $table->integer("maxdecaracteres");
-            $table->integer("mindecaracteres");
-            $table->string("tipodedatos");
-            $table->string("estado");
-            $table->string("etiqueta");
-            $table->string("adicional");
+            $table->longText("pregunta")->nullable();
+            $table->longText("tipodecomponente")->nullable();
+            $table->integer("numerodecomponente")->nullable();
+            $table->string("valordecomponente")->nullable();
+            $table->boolean("campoobligatorio")->nullable();
+            $table->integer("ordenpreguntas")->nullable();
+            $table->integer("ordencomponentes")->nullable();
+            $table->integer("maxdecaracteres")->nullable();
+            $table->integer("mindecaracteres")->nullable();
+            $table->string("tipodedatos")->nullable();
+            $table->string("estado")->nullable();
+            $table->string("etiqueta")->nullable();
+            $table->string("adicional")->nullable();
             $table->timestamps();
         });
     }

@@ -1,7 +1,8 @@
 <div>
     {{-- PASASMOS LA VARIABLE $nombreImg que estamos recibiendo desde el controlador y lo recibimos en app/view/banner.php para poder recibirlo en el componente banner resource/views/component/banner.blade.php --}}
     <x-banner :nameImg="$getDateFormulario" />
-    <x-jet-button>
+    
+    <x-jet-button class="bg-indigo-700" wire:click="agregarPregunta">
         <svg class="w-5 h-5 text-black" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" />
@@ -11,4 +12,9 @@
         </svg>
         Agregar pregunta
     </x-jet-button>
+
+    <x-divpreguntas :allPreguntas="$getAllPreguntas">
+
+    </x-divpreguntas>    
+    
 </div>
