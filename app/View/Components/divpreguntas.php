@@ -8,16 +8,18 @@ use Illuminate\View\Component;
 class divpreguntas extends Component
 {
     public $allPreguntas;
+    /* public $AllIDpreguntas; */
     /**
      * Create a new component instance.
      *
      * @return void
      */    
 
-    public function __construct($allPreguntas)
+    public function __construct($allPreguntas/* , $AllIDpreguntas */)
     {
         //
         $this->allPreguntas=$allPreguntas;
+        /* $this->AllIDpreguntas=$AllIDpreguntas; */
     }
 
     /**

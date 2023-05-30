@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('preguntasformularios', function (Blueprint $table) {
             $table->id();
-            $table->integer("formulario_id");
+            $table->integer("formulario_id")->nullable();
             $table->longText("pregunta")->nullable();
             $table->longText("tipodecomponente")->nullable();
             $table->integer("numerodecomponente")->nullable();

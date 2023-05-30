@@ -47,7 +47,10 @@
         </div>
 
     </div>
-
+    
+    {{-- Mostrar y Ocultar el Div de las preguntas para poder editar ahi mismo --}}
+    <script src="{{ asset('js/dashboard/mostrarOcultarPreguntasForm.js') }}"></script>
+        
     @livewireScripts
 </body>
 
