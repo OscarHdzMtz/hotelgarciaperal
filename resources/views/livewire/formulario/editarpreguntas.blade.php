@@ -1,7 +1,13 @@
 <div id="{{ $idpregunta . 100 }}" style="display: none; margin-left: -10px" class="border-l-4 border-indigo-500">
-    <div class="container px-4 mx-auto mt-5 {{-- bg-red-400  --}}rounded">
-        <div class="py-6 mb-5 px-7">
-            <div class="flex flex-wrap">
+    @php
+        /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
+        $valorcomponenteArray = explode('|', $getpregunta[0]['valordecomponente']);
+        $setcomponentepregunta = $getpregunta[0]['valordecomponente'];
+        $idPreguntaLocalStorage = 'id' . $getpregunta[0]['id'] . 'pregunta';
+    @endphp
+    <div x-data="{ enviarcomponentespreguntas: '{{ $setcomponentepregunta }}', id: '{{ $getpregunta[0]['id'] }}' }" class="container px-4 mx-auto mt-5 {{-- bg-red-400  --}}rounded">
+        <div x-data="getComponentYsaveInLocalStorage()" x-init="saveComponenteALocalStorage(enviarcomponentespreguntas, id)" class="py-6 mb-5 px-7">
+            <div x-data="{ selects: '{{ $getpregunta[0]['tipodecomponente'] }}' }" class="flex flex-wrap">
                 <div class="w-full mb-10 md:w-1/2 md:mb-0">
                     <div class="mx-1 mb-6">
                         <x-jet-label>
@@ -15,6 +21,72 @@
                                 value="Ingrese la pregunta?" wire:model="valuepregunta" />
                         @endif
                     </div>
+                    <template x-if="selects === 'input'">
+                        <div class="mx-10 mb-6">
+                            <x-jet-label>
+                                <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
+                            </x-jet-label>
+                            <x-jet-input
+                                class="text-sm text-gray-900 border border-green-600 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+                                placeholder="respuesta de texto corto" />
+                        </div>
+                    </template>
+                    <template x-if="selects === 'textarea'">
+                        <div class="mx-5">
+                            <x-jet-label>
+                                <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
+                            </x-jet-label>
+                            <textarea id="" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-green-500 focus:border-green-500 border-green-600"></textarea>
+                        </div>
+                    </template>
+                    {{-- <template x-if="selects === 'radio'">
+                        <div x-data="{pruebaX:'{{ $prueba }}', id:'{{ $getpregunta[0]['id']  }}'}" class="mx-5">
+                            <x-jet-label>
+                                <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
+                            </x-jet-label>
+                            <div x-data="mainComp()" x-init="inicializarTareas(pruebaX,id)">
+                                <ul>                                    
+                                    <template x-for="tarea in tareas" :key="tarea">
+                                        <li x-text="tarea"></li>
+                                    </template>
+                                </ul>                                
+                                <input type="text" x-model="nuevaTarea">                        
+                                <button @click="crearTarea()">Agregar tarea</button>
+                        
+                            </div>
+                        </div>
+                    </template> --}}
+                    <template x-if="selects === 'radio'">
+                        <div x-data="{
+                            newTodo: '',
+                            {{ $idPreguntaLocalStorage }}: JSON.parse(localStorage.getItem('{{ $idPreguntaLocalStorage }}') || '[]')
+                        }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
+                            <div {{-- x-data="{ todos: {{ $idPreguntaLocalStorage }} }" --}}>
+                                <div>
+                                    <button
+                                        @click="{{ $idPreguntaLocalStorage }} = []; localStorage.removeItem('{{ $idPreguntaLocalStorage }}');">
+                                        Clear
+                                    </button>
+                                </div>
+
+                                <form
+                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
+                                    <input x-model="newTodo" />
+                                    <button>Add</button>
+                                </form>
+                                <ul>Todos:
+                                    <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">
+                                        <li>
+                                            <span x-text="todo.text"></span>
+                                            <button
+                                                @click="{{ $idPreguntaLocalStorage }} = {{ $idPreguntaLocalStorage }}.filter(t => t.id !== todo.id)">x</button>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
                     @if ($getpregunta[0]['tipodecomponente'] == 'input')
                         <div class="mx-10 mb-6">
                             <x-jet-label>
@@ -61,45 +133,46 @@
                                 @endfor
                             </div>
                         </div>
-                        @elseif ($getpregunta[0]['tipodecomponente'] == 'checkbox')
-                            <div class="mx-5">
-                                @php
-                                    /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
-                                    $valorcomponentecheckboxArray = explode('|', $getpregunta[0]['valordecomponente']);
-                                @endphp
-                                <x-jet-label>
-                                    <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
-                                </x-jet-label>
-                                @for ($i = 0; $i < $getpregunta[0]['numerodecomponente']; $i++)
-                                    <div>
-                                        <x-jet-checkbox class="border-blue-700" />
-                                        <label for="checked-checkbox"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-700">{{ $valorcomponentecheckboxArray[$i] }}</label>
-                                    </div>
-                                @endfor
-                            </div>
-                        @elseif ($getpregunta[0]['tipodecomponente'] == 'select')
-                            <div class="mx-5">
-                                @php
-                                    /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
-                                    $valorcomponenteselectArray = explode('|', $getpregunta[0]['valordecomponente']);
-                                @endphp
-                                <select name="select"
-                                    class="bg-green-50 border border-green-500 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700 block w-full p-2.5">
+                    @elseif ($getpregunta[0]['tipodecomponente'] == 'checkbox')
+                        <div class="mx-5">
+                            @php
+                                /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
+                                $valorcomponentecheckboxArray = explode('|', $getpregunta[0]['valordecomponente']);
+                            @endphp
+                            <x-jet-label>
+                                <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
+                            </x-jet-label>
+                            @for ($i = 0; $i < $getpregunta[0]['numerodecomponente']; $i++)
+                                <div>
+                                    <x-jet-checkbox class="border-blue-700" />
+                                    <label for="checked-checkbox"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-700">{{ $valorcomponentecheckboxArray[$i] }}</label>
+                                </div>
+                            @endfor
+                        </div>
+                    @elseif ($getpregunta[0]['tipodecomponente'] == 'select')
+                        <div class="mx-5">
+                            @php
+                                /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
+                                $valorcomponenteselectArray = explode('|', $getpregunta[0]['valordecomponente']);
+                            @endphp
+                            <select name="select"
+                                class="bg-green-50 border border-green-500 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700 block w-full p-2.5">
+                                <option value="">
+                                    Seleccione una opcion
+                                </option>
+                                @for ($select = 0; $select < $getpregunta[0]['numerodecomponente']; $select++)
                                     <option value="">
-                                        Seleccione una opcion
+                                        {{ $valorcomponenteselectArray[$select] }}
                                     </option>
-                                    @for ($select = 0; $select < $getpregunta[0]['numerodecomponente']; $select++)
-                                        <option value="">
-                                            {{ $valorcomponenteselectArray[$select] }}
-                                        </option>
-                                    @endfor
-                                </select>
-                            </div>
+                                @endfor
+                            </select>
+                        </div>
                     @endif
                     <div class="mt-5">
                         <label for="">Obligatorio</label>
-                        <input type="checkbox" {{ $getpregunta[0]['campoobligatorio'] == 1 ? "checked='checked'" : '' }}
+                        <input type="checkbox"
+                            {{ $getpregunta[0]['campoobligatorio'] == 1 ? "checked='checked'" : '' }}
                             {{-- wire:click='getId({{ $item->id }})' wire:model="checkboxobligatorio" --}}>
                         {{-- <x-jet-button
                             class="px-4 py-2 ml-3 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
@@ -119,31 +192,33 @@
                 </div>
                 <div class="w-full mb-10 ml-5 md:w-1/4 md:mb-0">
                     <div class="mx-3">
-                        <select name="select"
+                        <select x-model="selects"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="{{ $getpregunta[0]['tipodecomponente'] }}"
+                            <option value="input"
                                 {{ $getpregunta[0]['tipodecomponente'] === 'input' ? 'selected="selected"' : '' }}>
                                 texto corto
                             </option>
-                            <option value="{{ $getpregunta[0]['tipodecomponente'] }}"
-                                {{ $getpregunta[0]['tipodecomponente'] === 'textarea' ? 'selected="selected"' : '' }}>
+                            <option value="textarea"
+                                {{ $getpregunta[0]['tipodecomponente'] === 'textarea' ? 'selected="selected"' : '' }}
+                                x-on:click="selects = 'textarea'">
                                 Parrafo
                             </option>
-                            <option value="{{ $getpregunta[0]['tipodecomponente'] }}"
+                            <option value="radio"
                                 {{ $getpregunta[0]['tipodecomponente'] === 'radio' ? 'selected="selected"' : '' }}>
                                 Opcion
                                 multiple
                             </option>
-                            <option value="{{ $getpregunta[0]['tipodecomponente'] }}"
+                            <option value="checkbox"
                                 {{ $getpregunta[0]['tipodecomponente'] === 'checkbox' ? 'selected="selected"' : '' }}>
                                 Casilla
                                 de
                                 Verificacion</option>
-                            <option value="{{ $getpregunta[0]['tipodecomponente'] }}"
+                            <option value="select"
                                 {{ $getpregunta[0]['tipodecomponente'] === 'select' ? 'selected="selected"' : '' }}>
                                 Lista
                                 desplegable</option>
                         </select>
+                        <span x-text="selects"></span>
                     </div>
                 </div>
             </div>
