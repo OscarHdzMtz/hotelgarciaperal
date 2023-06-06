@@ -18,7 +18,7 @@
                                 value="" />
                         @else
                             <x-jet-input class="border-red-500 focus:ring-red-600 focus:border-red-600"
-                                value="Ingrese la pregunta?" wire:model="valuepregunta" />
+                                value="Ingrese la pregunta?" {{-- wire:model="valuepregunta" --}} />
                         @endif
                     </div>
                     <template x-if="selects === 'input'">
@@ -40,47 +40,49 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-green-500 focus:border-green-500 border-green-600"></textarea>
                         </div>
                     </template>
-                    {{-- <template x-if="selects === 'radio'">
-                        <div x-data="{pruebaX:'{{ $prueba }}', id:'{{ $getpregunta[0]['id']  }}'}" class="mx-5">
-                            <x-jet-label>
-                                <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
-                            </x-jet-label>
-                            <div x-data="mainComp()" x-init="inicializarTareas(pruebaX,id)">
-                                <ul>                                    
-                                    <template x-for="tarea in tareas" :key="tarea">
-                                        <li x-text="tarea"></li>
-                                    </template>
-                                </ul>                                
-                                <input type="text" x-model="nuevaTarea">                        
-                                <button @click="crearTarea()">Agregar tarea</button>
-                        
-                            </div>
-                        </div>
-                    </template> --}}
                     <template x-if="selects === 'radio'">
                         <div x-data="{
                             newTodo: '',
                             {{ $idPreguntaLocalStorage }}: JSON.parse(localStorage.getItem('{{ $idPreguntaLocalStorage }}') || '[]')
                         }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
                             <div {{-- x-data="{ todos: {{ $idPreguntaLocalStorage }} }" --}}>
-                                <div>
+                                <form
+                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $getpregunta[0]['id'] }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
+                                    <div class="flex items-center py-2 border-b border-teal-500">
+                                        <input
+                                            class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
+                                            placeholder="Agregar una opcion " x-model="newTodo">
+                                        <button
+                                            class="flex-shrink-0 px-2 py-1 text-sm text-white bg-teal-500 border-4 border-teal-500 rounded hover:bg-teal-700 hover:border-teal-700">
+                                            Agregar
+                                        </button>
+
+                                    </div>
+                                    {{-- <input  x-model="newTodo" /> --}}
+                                    {{-- <button>Add</button> --}}
+                                </form>
+                                <div class="mt-5 mb-5">
                                     <button
+                                        class="px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
                                         @click="{{ $idPreguntaLocalStorage }} = []; localStorage.removeItem('{{ $idPreguntaLocalStorage }}');">
-                                        Clear
+                                        Borrar todas las opciones
                                     </button>
                                 </div>
-
-                                <form
-                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
-                                    <input x-model="newTodo" />
-                                    <button>Add</button>
-                                </form>
-                                <ul>Todos:
+                                <ul>Opciones agregadas:
                                     <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">
                                         <li>
-                                            <span x-text="todo.text"></span>
-                                            <button
-                                                @click="{{ $idPreguntaLocalStorage }} = {{ $idPreguntaLocalStorage }}.filter(t => t.id !== todo.id)">x</button>
+                                            {{-- <span x-text="todo.text"></span> --}}
+                                            <div
+                                                class="flex items-center pl-4 mt-2 border border-gray-200 rounded dark:border-gray-700">
+                                                <input id="bordered-radio-1" type="radio" value=""
+                                                    name="bordered-radio"
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="bordered-radio-1"
+                                                    class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-700"
+                                                    x-text="todo.text"></label>
+                                                <button
+                                                    class="px-4 py-2 mr-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
+                                                    @click="{{ $idPreguntaLocalStorage }} = {{ $idPreguntaLocalStorage }}.filter(t => t.id !== todo.id)">x</button>
                                         </li>
                                     </template>
                                 </ul>
@@ -104,10 +106,9 @@
                             <textarea id="" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-green-500 focus:border-green-500 border-green-600"></textarea>
                         </div>
-                    @elseif ($getpregunta[0]['tipodecomponente'] == 'radio')
+                        {{-- @elseif ($getpregunta[0]['tipodecomponente'] == 'radio')
                         <div class="mx-5">
-                            @php
-                                /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
+                            @php                                
                                 $valorcomponenteArray = explode('|', $getpregunta[0]['valordecomponente']);
                             @endphp
                             <x-jet-label>
@@ -132,7 +133,7 @@
                                     </div>
                                 @endfor
                             </div>
-                        </div>
+                        </div> --}}
                     @elseif ($getpregunta[0]['tipodecomponente'] == 'checkbox')
                         <div class="mx-5">
                             @php
@@ -218,7 +219,7 @@
                                 Lista
                                 desplegable</option>
                         </select>
-                        <span x-text="selects"></span>
+                        {{-- <span x-text="selects"></span> --}}
                     </div>
                 </div>
             </div>
