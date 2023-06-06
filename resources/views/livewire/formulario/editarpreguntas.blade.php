@@ -61,16 +61,12 @@
                                     {{-- <input  x-model="newTodo" /> --}}
                                     {{-- <button>Add</button> --}}
                                 </form>
-                                <div class="mt-5 mb-5">
-                                    <button
-                                        class="px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
-                                        @click="{{ $idPreguntaLocalStorage }} = []; localStorage.removeItem('{{ $idPreguntaLocalStorage }}');">
-                                        Borrar todas las opciones
-                                    </button>
-                                </div>
-                                <ul>Opciones agregadas:
+                                <ul class="mt-3 mb-2 border-2 border-teal-500">
+                                    <div class="ml-3">
+                                        Opciones agregadas:
+                                    </div>
                                     <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">
-                                        <li>
+                                        <li class="ml-3 mr-3">
                                             {{-- <span x-text="todo.text"></span> --}}
                                             <div
                                                 class="flex items-center pl-4 mt-2 border border-gray-200 rounded dark:border-gray-700">
@@ -85,11 +81,116 @@
                                                     @click="{{ $idPreguntaLocalStorage }} = {{ $idPreguntaLocalStorage }}.filter(t => t.id !== todo.id)">x</button>
                                         </li>
                                     </template>
+                                    <div class="mt-3 mb-3 ml-3 mr-3">
+                                        <button
+                                            class="px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
+                                            @click="{{ $idPreguntaLocalStorage }} = []; localStorage.removeItem('{{ $idPreguntaLocalStorage }}');">
+                                            Borrar todas las opciones
+                                        </button>
+                                    </div>
                                 </ul>
                             </div>
                         </div>
                     </template>
-                    @if ($getpregunta[0]['tipodecomponente'] == 'input')
+                    <template x-if="selects === 'checkbox'">
+                        <div x-data="{
+                            newTodo: '',
+                            {{ $idPreguntaLocalStorage }}: JSON.parse(localStorage.getItem('{{ $idPreguntaLocalStorage }}') || '[]')
+                        }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
+                            <div>
+                                <form
+                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $getpregunta[0]['id'] }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
+                                    <div class="flex items-center py-2 border-b border-teal-500">
+                                        <input
+                                            class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
+                                            placeholder="Agregar una opcion " x-model="newTodo">
+                                        <button
+                                            class="flex-shrink-0 px-2 py-1 text-sm text-white bg-teal-500 border-4 border-teal-500 rounded hover:bg-teal-700 hover:border-teal-700">
+                                            Agregar
+                                        </button>
+                                    </div>
+                                </form>
+                                <ul class="mt-3 mb-2 border-2 border-teal-500">
+                                    <div class="ml-3">
+                                        Opciones agregadas:
+                                    </div>
+                                    <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">
+                                        <li class="mb-3 ml-3">
+                                            <div class="block pt-1 mt-1 min-h-6 pl-7">
+                                                <label>
+                                                    <input id="checkbox-1"
+                                                        class="w-5 h-5 ease-soft text-base -ml-7 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-150 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100"
+                                                        type="checkbox" />
+                                                    <label for="checkbox-1"
+                                                        class="cursor-pointer select-none text-slate-700"
+                                                        x-text="todo.text"></label>
+                                                </label>
+                                                <button
+                                                    class="px-4 py-2 mr-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
+                                                    @click="{{ $idPreguntaLocalStorage }} = {{ $idPreguntaLocalStorage }}.filter(t => t.id !== todo.id)">x</button>
+                                            </div>
+                                        </li>
+                                    </template>
+                                    <div class="mt-3 mb-3 ml-3 mr-3">
+                                        <button
+                                            class="px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
+                                            @click="{{ $idPreguntaLocalStorage }} = []; localStorage.removeItem('{{ $idPreguntaLocalStorage }}');">
+                                            Borrar todas las opciones
+                                        </button>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="selects === 'select'">
+                        <div x-data="{
+                            newTodo: '',
+                            {{ $idPreguntaLocalStorage }}: JSON.parse(localStorage.getItem('{{ $idPreguntaLocalStorage }}') || '[]')
+                        }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
+                            <div>
+                                <form
+                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $getpregunta[0]['id'] }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
+                                    <div class="flex items-center py-2 border-b border-teal-500">
+                                        <input
+                                            class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
+                                            placeholder="Agregar una opcion " x-model="newTodo">
+                                        <button
+                                            class="flex-shrink-0 px-2 py-1 text-sm text-white bg-teal-500 border-4 border-teal-500 rounded hover:bg-teal-700 hover:border-teal-700">
+                                            Agregar
+                                        </button>
+                                    </div>
+                                </form>
+                                <ul class="mt-3 mb-2 border-2 border-teal-500">
+                                    <div class="ml-3">
+                                        Opciones agregadas:
+                                    </div>
+                                    <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">
+                                        <li class="mb-3">
+                                            <div class="block pt-1 mt-1 min-h-6 pl-7">
+                                                <label>
+                                                    -.
+                                                    <label for="checkbox-1"
+                                                        class="cursor-pointer select-none text-slate-700"
+                                                        x-text="todo.text"></label>
+                                                </label>
+                                                <button
+                                                    class="px-4 py-2 mr-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
+                                                    @click="{{ $idPreguntaLocalStorage }} = {{ $idPreguntaLocalStorage }}.filter(t => t.id !== todo.id)">x</button>
+                                            </div>
+                                        </li>
+                                    </template>
+                                    <div class="mt-3 mb-3 ml-3 mr-3">
+                                        <button
+                                            class="px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
+                                            @click="{{ $idPreguntaLocalStorage }} = []; localStorage.removeItem('{{ $idPreguntaLocalStorage }}');">
+                                            Borrar todas las opciones
+                                        </button>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
+                    {{-- @if ($getpregunta[0]['tipodecomponente'] == 'input')
                         <div class="mx-10 mb-6">
                             <x-jet-label>
                                 <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
@@ -106,7 +207,7 @@
                             <textarea id="" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-green-500 focus:border-green-500 border-green-600"></textarea>
                         </div>
-                        {{-- @elseif ($getpregunta[0]['tipodecomponente'] == 'radio')
+                        @elseif ($getpregunta[0]['tipodecomponente'] == 'radio')
                         <div class="mx-5">
                             @php                                
                                 $valorcomponenteArray = explode('|', $getpregunta[0]['valordecomponente']);
@@ -133,11 +234,10 @@
                                     </div>
                                 @endfor
                             </div>
-                        </div> --}}
-                    @elseif ($getpregunta[0]['tipodecomponente'] == 'checkbox')
+                        </div>
+                          @elseif ($getpregunta[0]['tipodecomponente'] == 'checkbox')
                         <div class="mx-5">
-                            @php
-                                /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
+                            @php                                
                                 $valorcomponentecheckboxArray = explode('|', $getpregunta[0]['valordecomponente']);
                             @endphp
                             <x-jet-label>
@@ -151,10 +251,9 @@
                                 </div>
                             @endfor
                         </div>
-                    @elseif ($getpregunta[0]['tipodecomponente'] == 'select')
+                        @elseif ($getpregunta[0]['tipodecomponente'] == 'select')
                         <div class="mx-5">
-                            @php
-                                /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
+                            @php                                
                                 $valorcomponenteselectArray = explode('|', $getpregunta[0]['valordecomponente']);
                             @endphp
                             <select name="select"
@@ -169,7 +268,7 @@
                                 @endfor
                             </select>
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="mt-5">
                         <label for="">Obligatorio</label>
                         <input type="checkbox"
