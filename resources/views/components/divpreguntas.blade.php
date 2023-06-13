@@ -3,7 +3,10 @@
         <div class="container px-4 mx-auto mt-5 rounded bg-slate-100">
             {{-- <div> --}}
             {{-- @livewire('formulario.editarpreguntas', ['idpregunta' => $item->id]) --}}
-            <livewire:formulario.editarpreguntas :idpregunta="$item->id" :wire:key="$item->id">
+            @foreach ($preguntasFormulario as $pregunta)
+                {{-- <livewire:formulario.editarpreguntas :idpregunta="$item->id" :wire:key="$item->id"> --}}
+                    @livewire('livewire:formulario.editarpregunta', ['pregunta' => $pregunta], key($pregunta->id))
+            @endforeach            
                 {{-- </div> --}}
                 @php
                     $idshow = $item->id;

@@ -64,6 +64,8 @@
                 /* RECIBIMOS LOS COMPONENTES DE LAS PREGUNTAS PARA CONVERTIRLAS EN ARREGLO DE OBJETOS Y GURDARLAS EN LOCALS
                 STORAGE PARA PODER EDITARLAS EN TIEMPO REAL */
                 saveComponenteALocalStorage: function($enviarcomponentespreguntas, $idpregunta) {
+                    /* console.log($enviarcomponentespreguntas);
+                    console.log($idpregunta); */
                     var receive = $enviarcomponentespreguntas;
                     /* Convertimos el string de componentes de la BD a array */
                     var stringConponenteAarray = receive.split('|')

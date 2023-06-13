@@ -1,6 +1,8 @@
 function MostrarOcultarDiv($idshow, $idedit, $allPreguntas) {
     var x = document.getElementById($idshow);
     var y = document.getElementById($idedit);
+    /* console.log(x)
+    console.log(y) */
     //CONVERTIMOS EL STRING EN ARRAY PARA OBTENER LOS ID
     var allPreguntasArray = $allPreguntas.split('|');
 

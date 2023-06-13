@@ -1,26 +1,32 @@
-<div id="{{ $idpregunta . 100 }}" style="display: none; margin-left: -10px" class="border-l-4 border-indigo-500">
+<div id="{{ $pregunta->id . 100 }}" style="display: none; margin-left: -10px" class="border-l-4 border-indigo-500">
     @php
         /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
-        $valorcomponenteArray = explode('|', $getpregunta[0]['valordecomponente']);
-        $setcomponentepregunta = $getpregunta[0]['valordecomponente'];
-        $idPreguntaLocalStorage = 'id' . $getpregunta[0]['id'] . 'pregunta';
+        $valorcomponenteArray = explode('|', $pregunta->valordecomponente);
+        $setcomponentepregunta = $pregunta->valordecomponente;
+        /* $setcomponentepregunta = $getpregunta[0]['valordecomponente']; */
+        $idpregunta = $pregunta->id;
+        $idPreguntaLocalStorage = 'id' . $pregunta->id . 'pregunta';
+        /* $idPreguntaLocalStorage = 'id' . $getpregunta[0]['id'] . 'pregunta'; */
     @endphp
-    <div x-data="{ enviarcomponentespreguntas: '{{ $setcomponentepregunta }}', id: '{{ $getpregunta[0]['id'] }}' }" class="container px-4 mx-auto mt-5 {{-- bg-red-400  --}}rounded">
+    <div x-data="{ enviarcomponentespreguntas: '{{ $setcomponentepregunta }}', id: '{{ $idpregunta }}' }" class="container px-4 mx-auto mt-5 {{-- bg-red-400  --}}rounded">
         <div x-data="getComponentYsaveInLocalStorage()" x-init="saveComponenteALocalStorage(enviarcomponentespreguntas, id)" class="py-6 mb-5 px-7">
-            <div x-data="{ selects: '{{ $getpregunta[0]['tipodecomponente'] }}' }" class="flex flex-wrap">
+            <div x-data="{ selects: '{{ $pregunta->tipodecomponente }}' }" class="flex flex-wrap">                
                 <div class="w-full mb-10 md:w-1/2 md:mb-0">
-                    <div class="mx-1 mb-6">
-                        <x-jet-label>
-                            <strong>PREGUNTA {{ $getpregunta[0]['id'] }}</strong>
-                        </x-jet-label>
-                        @if ($getpregunta[0]['pregunta'] != '')
-                            <x-jet-input class="border-green-500 focus:ring-green-600 focus:border-green-600"
-                                value="" />
-                        @else
-                            <x-jet-input class="border-red-500 focus:ring-red-600 focus:border-red-600"
-                                value="Ingrese la pregunta?" {{-- wire:model="valuepregunta" --}} />
-                        @endif
-                    </div>
+                    <form wire:submit.prevent="editarPreguta" enctype="multipart/form-data">
+                        <div class="mx-1 mb-6">
+                            <x-jet-label>
+                                <strong>PREGUNTA {{ $idpregunta }}</strong>
+                            </x-jet-label>
+                            @if ($pregunta->pregunta != '')
+                                <x-jet-input class="border-green-500 focus:ring-green-600 focus:border-green-600"
+                                    value="" {{-- wire:model="valuepregunta"  --}}/>
+                            @else
+                                <x-jet-input class="border-red-500 focus:ring-red-600 focus:border-red-600"
+                                    value="Ingrese la pregunta?" {{-- wire:model="valuepregunta" --}} />
+                            @endif
+                        </div>
+                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button>                
+                    </form>
                     <template x-if="selects === 'input'">
                         <div class="mx-10 mb-6">
                             <x-jet-label>
@@ -47,7 +53,7 @@
                         }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
                             <div {{-- x-data="{ todos: {{ $idPreguntaLocalStorage }} }" --}}>
                                 <form
-                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $getpregunta[0]['id'] }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
+                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $pregunta->id }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
                                     <div class="flex items-center py-2 border-b border-teal-500">
                                         <input
                                             class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
@@ -65,7 +71,7 @@
                                     <div class="ml-3">
                                         Opciones agregadas:
                                     </div>
-                                    <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">
+                                    <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">                                        
                                         <li class="ml-3 mr-3">
                                             {{-- <span x-text="todo.text"></span> --}}
                                             <div
@@ -99,7 +105,7 @@
                         }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
                             <div>
                                 <form
-                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $getpregunta[0]['id'] }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
+                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $pregunta->id }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
                                     <div class="flex items-center py-2 border-b border-teal-500">
                                         <input
                                             class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
@@ -149,7 +155,7 @@
                         }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
                             <div>
                                 <form
-                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $getpregunta[0]['id'] }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
+                                    @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $pregunta->id }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
                                     <div class="flex items-center py-2 border-b border-teal-500">
                                         <input
                                             class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
@@ -272,7 +278,7 @@
                     <div class="mt-5">
                         <label for="">Obligatorio</label>
                         <input type="checkbox"
-                            {{ $getpregunta[0]['campoobligatorio'] == 1 ? "checked='checked'" : '' }}
+                            {{ $pregunta->campoobligatorio == 1 ? "checked='checked'" : '' }}
                             {{-- wire:click='getId({{ $item->id }})' wire:model="checkboxobligatorio" --}}>
                         {{-- <x-jet-button
                             class="px-4 py-2 ml-3 font-bold text-white bg-red-500 rounded-full hover:bg-red-700"
@@ -295,30 +301,30 @@
                         <select x-model="selects"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="input"
-                                {{ $getpregunta[0]['tipodecomponente'] === 'input' ? 'selected="selected"' : '' }}>
+                                {{ $pregunta->tipodecomponente === 'input' ? 'selected="selected"' : '' }}>
                                 texto corto
                             </option>
                             <option value="textarea"
-                                {{ $getpregunta[0]['tipodecomponente'] === 'textarea' ? 'selected="selected"' : '' }}
-                                x-on:click="selects = 'textarea'">
+                                {{ $pregunta->tipodecomponente === 'textarea' ? 'selected="selected"' : '' }}
+                                {{-- x-on:click="selects = 'textarea'" --}}>
                                 Parrafo
                             </option>
                             <option value="radio"
-                                {{ $getpregunta[0]['tipodecomponente'] === 'radio' ? 'selected="selected"' : '' }}>
+                                {{ $pregunta->tipodecomponente === 'radio' ? 'selected="selected"' : '' }}>
                                 Opcion
                                 multiple
                             </option>
                             <option value="checkbox"
-                                {{ $getpregunta[0]['tipodecomponente'] === 'checkbox' ? 'selected="selected"' : '' }}>
+                                {{ $pregunta->tipodecomponente === 'checkbox' ? 'selected="selected"' : '' }}>
                                 Casilla
                                 de
                                 Verificacion</option>
                             <option value="select"
-                                {{ $getpregunta[0]['tipodecomponente'] === 'select' ? 'selected="selected"' : '' }}>
+                                {{ $pregunta->tipodecomponente === 'select' ? 'selected="selected"' : '' }}>
                                 Lista
                                 desplegable</option>
                         </select>
-                        {{-- <span x-text="selects"></span> --}}
+                        <span x-text="selects"></span>
                     </div>
                 </div>
             </div>

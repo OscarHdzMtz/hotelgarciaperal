@@ -14,6 +14,8 @@ class Creaciondepreguntas extends Component
     public $descripcionInput;
     public $nombreInput;
     public $imgformulario;
+
+    public $preguntasFormulario;
     /* preguntas */
     /* public $checkboxobligatorio = 0; */
     /* public $idpregunta; */
@@ -22,6 +24,10 @@ class Creaciondepreguntas extends Component
         $this->idpregunta = $idPreg;
         return $idPreg;
     }  */   
+
+    public function mount(){
+        $this->preguntasFormulario = preguntasformularios::where('formulario_id', $this->idformulario)->get();
+    }
 
     public function agregarPregunta(){    
         $numero_aleatorio = rand(1,5);    
