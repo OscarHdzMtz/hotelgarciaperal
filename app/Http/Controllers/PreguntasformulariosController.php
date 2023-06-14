@@ -10,13 +10,16 @@ use Illuminate\Http\Request;
 
 class PreguntasformulariosController extends Controller
 {
+    //RECIBIMOS LOS DATOS DESDE JAVASCRIPT
     public function update(Request $request){        
         $pregunta_id = $request->pregunta_id;
         $formulario_id = $request->formulario_id;
         /* $formulario_pregunta = preguntasformularios::where('id', $pregunta_id)->where('formulario_id', $formulario_id); */
-        $formulario_pregunta = preguntasformularios::findorfail($pregunta_id);
-        $consultaTableFormulario = addformularios::where('id', $formulario_id)->get()->toArray();
-        $nombreFormulario = $consultaTableFormulario[0]['id'];
+        /* $consultaTableFormulario = addformularios::where('id', $formulario_id)->get()->toArray();                
+        $nombreFormulario = $consultaTableFormulario[0]['id']; */
+
+        $formulario_pregunta = preguntasformularios::findorfail($pregunta_id);        
+        
         $formulario_pregunta->pregunta = $request->pregunta;
         $formulario_pregunta->tipodecomponente = $request->tipodecomponente;
         $formulario_pregunta->campoobligatorio = $request->obligatorio;

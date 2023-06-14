@@ -72,7 +72,7 @@ class Creaciondepreguntas extends Component
         }
 
         $this->updateDatosFormulario($this->idformulario, $this->descripcionInput, $this->nombreInput, $this->imgformulario);
-        $getAllPreguntas = preguntasformularios::where('formulario_id', $this->idformulario)->get();                
+        $getAllPreguntas = preguntasformularios::orderBy('created_at', 'DESC')->where('formulario_id', $this->idformulario)->get();                
         return view('livewire.formulario.creaciondepreguntas', compact('getDateFormulario', 'getAllPreguntas'));
     }
 
