@@ -87,8 +87,10 @@
             }
         }
     </script>
-    {{-- Mostrar y Ocultar el Div de las preguntas para poder editar ahi mismo --}}
+    {{-- Mostrar y Ocultar el Div de las preguntas para poder editar ahi mismo --}}    
     <script src="{{ asset('js/dashboard/mostrarOcultarPreguntasForm.js') }}"></script>
+    {{-- Editar datos de preguntas formulario en la base de datos --}}
+    <script src="{{ asset('js/dashboard/preguntasFormulario/editarDatosPreguntas.js') }}"></script>
 
     @livewireScripts
 </body>

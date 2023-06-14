@@ -29,11 +29,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     /* RUTAS FORMULARIOS */
     Route::get('/addformulario', [AddformulariosController::class, 'index'])->name('addformulario');
     Route::get('/createformularios', [AddformulariosController::class, 'create'])->name('createformularios');
-    
-    Route::get('preguntasformularios/{id}/{nombre}', function(int $id,string $nombre){
+
+    Route::put('/preguntasformularios/{id}/{nombre}', [PreguntasformulariosController::class, 'update'])->name('editpreguntasformularios');
+    Route::get('/preguntasformularios/{id}/{nombre}', function(int $id,string $nombre){
         return view('pages.formularios.preguntasformulario', compact('id','nombre'));
     });
-
+    
     Route::fallback(function() {
         return view('pages/utility/404');
     });    

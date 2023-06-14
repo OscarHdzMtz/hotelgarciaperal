@@ -22,12 +22,13 @@
                 {{-- <div> --}}
                 {{-- @livewire('formulario.editarpreguntas', ['idpregunta' => $item->id]) --}}
                 {{-- <livewire:formulario.editarpreguntas :idpregunta="$item->id" :wire:key="$item->id"> --}}
-                @foreach ($preguntasFormulario as $pregunta)
+                {{--  @foreach ($preguntasFormulario as $pregunta)
                     @if ($item->id === $pregunta->id)
                         @livewire('formulario.editarpreguntas', ['pregunta' => $pregunta], key($pregunta->id))
                     @endif
-                @endforeach
+                @endforeach --}}
                 {{-- </div> --}}
+                @include('pages.formularios.diveditarpreguntas')
                 @php
                     $idshow = $item->id;
                     $idedit = $item->id . 100;

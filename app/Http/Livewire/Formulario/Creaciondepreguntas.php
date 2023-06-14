@@ -18,7 +18,7 @@ class Creaciondepreguntas extends Component
     public $preguntasFormulario;
     /* preguntas */
     /* public $checkboxobligatorio = 0; */
-    /* public $idpregunta; */
+    public $valuepregunta;
     
    /*  public function getId($idPreg){
         $this->idpregunta = $idPreg;
