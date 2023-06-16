@@ -9,7 +9,8 @@ use App\Models\respuestasformularios;
 class Respuestasformulario extends Component
 {
     public $preguntas;
-    public $respuestaInput;
+    public $valoresRespuesta;
+    public $valoresCheckbox = [];
 
     public $wireidporregistro; //WIRE ID QUE SE GUARDARA POR CADA REGISTRO PARA DIFERENCIAR
 
@@ -22,13 +23,20 @@ class Respuestasformulario extends Component
     {
         $pregunta_id = $this->preguntas->id;
         $formulario_id = $this->preguntas->formulario_id;
-        $prueba = $this->respuestaInput;
+        $prueba = $this->valoresCheckbox;
         $wireidporpregunta = $this->id; //WIRE ID QUE SE GUARDARA POR PREGUNTA PARA NO REPETIR Y PODER ACTUALIZAR PREGUNTA CONSULTAR POR REGISTRO
-        if ($this->respuestaInput != null) {
+        if ($this->valoresRespuesta != null) {
             $this->insertarRespuestas(
                 $formulario_id,
                 $pregunta_id,
                 $wireidporpregunta
+            );
+        }
+        if ($this->valoresCheckbox != null) {
+            $this->guardarValorComponenteCheckbox(
+                $this->valoresCheckbox,
+                $formulario_id,
+                $pregunta_id
             );
         }
 
@@ -52,7 +60,7 @@ class Respuestasformulario extends Component
                 $wireidConsultado
             );
             $respuestaActualizar->wireidporregistro = $this->wireidporregistro;
-            $respuestaActualizar->respuesta = $this->respuestaInput;
+            $respuestaActualizar->respuesta = $this->valoresRespuesta;
             $respuestaActualizar->update();
             toastr()->warning("Actualizados correctamente!", "DATOS");
         } else {
@@ -61,7 +69,7 @@ class Respuestasformulario extends Component
             $respuestas->wireidporregistro = $this->wireidporregistro;
             $respuestas->formulario_id = $formulario_id;
             $respuestas->pregunta_id = $pregunta_id;
-            $respuestas->respuesta = $this->respuestaInput;
+            $respuestas->respuesta = $this->valoresRespuesta;
             $respuestas->save();
             toastr()->success("Correctamente", "GUARDADO");
         }
@@ -98,5 +106,61 @@ class Respuestasformulario extends Component
             $respuestas->save();
             toastr()->success("Correctamente", "GUARDADO");
         }
+    }
+    public function guardarValorComponenteCheckbox(
+        $valorcomponenteRecibido,
+        $formulario_id,
+        $pregunta_id
+    ) {
+        $prueba = $valorcomponenteRecibido;
+        $wireidporpregunta = $this->id;
+
+        $ConsultarWireId = respuestasformularios::where(
+            "wireidporpregunta",
+            $wireidporpregunta
+        )
+            ->get()
+            ->toArray();
+        if (count($ConsultarWireId) >= 1) {
+            $wireidConsultado = $ConsultarWireId[0]["id"];
+            $respuestaActualizar = respuestasformularios::findOrFail(
+                $wireidConsultado
+            );
+
+            $respuestaActualizar->wireidporregistro = $this->wireidporregistro;
+            $respuestaActualizar->respuesta = $this->convertirValoresCheckboxArray(
+                $valorcomponenteRecibido
+            );
+            $respuestaActualizar->update();
+            toastr()->warning("Actualizados correctamente!", "DATOS");
+        } else {
+            $respuestas = new respuestasformularios();
+            /* $this->convertirValoresCheckboxArray($valorcomponenteRecibido); */
+            $respuestas->wireidporpregunta = $wireidporpregunta;
+            $respuestas->wireidporregistro = $this->wireidporregistro;
+            $respuestas->formulario_id = $formulario_id;
+            $respuestas->pregunta_id = $pregunta_id;
+            $respuestas->respuesta = $this->convertirValoresCheckboxArray(
+                $valorcomponenteRecibido
+            );
+            $respuestas->save();
+            toastr()->success("Correctamente", "GUARDADO");
+        }
+    }
+    public function convertirValoresCheckboxArray($valorcomponenteRecibido)
+    {
+        $valoresComponenteString = "";
+
+        foreach ($valorcomponenteRecibido as $key => $value) {
+            if ($value != false) {
+                $valoresComponenteString =
+                    $valoresComponenteString . $value . "|";
+            }
+        }
+        return $valoresComponenteString = substr(
+            $valoresComponenteString,
+            0,
+            strlen($valoresComponenteString) - 1
+        );
     }
 }

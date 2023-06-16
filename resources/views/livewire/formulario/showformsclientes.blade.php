@@ -75,8 +75,26 @@
                                 @endif                                
                             </div>
                         </div> --}}
-                        @livewire('formulario.respuestasformulario',  ['preguntas' => $preguntas, 'wireidporregistro' => $wireidporregistro], key($preguntas->id))
+                        @livewire('formulario.respuestasformulario', ['preguntas' => $preguntas, 'wireidporregistro' => $wireidporregistro], key($preguntas->id))
                     @endforeach
+                </div>
+                <div class="py-3">
+                    <div class="px-5 py-3 ml-3 mr-3 bg-indigo-100 rounded">
+                        <div class="flex {{-- items-center --}} content-between pt-4">
+                            <h3 class="mr-3">Gracias por su tiempo </h3>
+                            <button
+                                class="flex select-none items-center gap-3 rounded-lg border border-pink-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:opacity-75 focus:ring focus:ring-pink-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                type="button" data-ripple-dark="true">
+                                Finalizar
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" aria-hidden="true" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <form class="flex flex-col px-3 py-12 rounded sm:flex-row">
                     <input type="email" id="subscribe" placeholder="suscribirse a promociones…"
