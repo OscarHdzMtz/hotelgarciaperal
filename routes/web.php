@@ -17,7 +17,9 @@ use App\Http\Controllers\PreguntasformulariosController;
 |
 */
 
-Route::get('/', [AddformulariosController::class, 'indexmain'])->name('index');
+Route::get('/forms/{id}/{nombre}', function(int $id,string $nombre){
+     return view('forms', compact('id','nombre'));
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 

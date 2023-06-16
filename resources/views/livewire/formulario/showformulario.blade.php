@@ -21,16 +21,26 @@
                         </a>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                             {{ $setformularios->descripcion }}</p>
-                        <a href="{{ url('preguntasformularios' , ['id' => $setformularios->id, 'nombre' => $setformularios->nombre]) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <div>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                @php
+                                    $tags = str_replace(' ', '-', $setformularios->nombre);
+                                @endphp
+                                {{ url('forms', ['id' => $setformularios->id, 'nombre' => $tags]) }}</p>
+                        </div>
+                        <a href="{{ url('preguntasformularios', ['id' => $setformularios->id, 'nombre' => $tags]) }}"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Editar
-                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                                     clip-rule="evenodd"></path>
                             </svg>
                         </a>
-                        <a data-modal-target="authentication-modal" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button" " @click="open = true">
+                        <a data-modal-target="authentication-modal"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            type="button" " @click="open = true">
                             Eliminar
                             <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +52,7 @@
     
                         {{-- <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-5" type="button" " @click="open = true">
                             Eliminar
-                          </button>   --}}  
+                          </button>   --}}
     
                           <div id="myModalDelete {{ $setformularios->id }}" class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  >
                             <div class="relative w-full max-w-md max-h-full">
@@ -66,7 +76,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
-                                        <h3 class="mb-2 text-lg font-normal text-gray-500 dark:text-gray-400">¿Está seguro que desea eliminar el formulario <strong>{{$setformularios->nombre}}</strong>?</h3>
+                                        <h3 class="mb-2 text-lg font-normal text-gray-500 dark:text-gray-400">¿Está seguro que desea eliminar el formulario <strong>{{ $setformularios->nombre }}</strong>?</h3>
                                         <div class="mb-5 text-lg font-normal text-red-500 dark:text-red-500">
                                             <small><strong>NOTA: Al borrar el formulario se borran tambien sus preguntas y respuestas</strong></small>
                                         </div>
@@ -84,6 +94,6 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
-</div>
+ @endforeach
+                    </div>
+                </div>

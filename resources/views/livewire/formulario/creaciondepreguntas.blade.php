@@ -28,7 +28,12 @@
                     @endif
                 @endforeach --}}
                 {{-- </div> --}}
+
+                {{-- AGREGAMOS LA PAGINA QUE SE CERA ENCIMA PARA PODER EDITAR LA PREGUNTA...SE IBA HACER CON editarpreguntas.blade.php
+                    de livewire pero por detalles con alpine al obtener el localstorage cuando se recarga la pagina por livewire no se pudo --}}
                 @include('pages.formularios.diveditarpreguntas')
+
+
                 @php
                     $idshow = $item->id;
                     $idedit = $item->id . 100;
