@@ -1,6 +1,6 @@
-<div class="px-5 py-5 mt-5 ml-3 mr-3 bg-indigo-100 rounded">
+<div class="px-5 py-5 mb-5 ml-3 mr-3 bg-indigo-100 rounded">
     <a
-        class="block text-lg font-semibold transition-colors font-body text-primary hover:text-green dark:text-black dark:hover:text-secondary">{{ $preguntas->pregunta }}</a>
+        class="block text-lg font-semibold transition-colors font-body text-primary hover:text-green dark:text-black dark:hover:text-secondary">{{ $preguntas->pregunta }} <small style="color: red">{{ $preguntas->campoobligatorio == 1 ? "*": "" }}</small></a>
     <div class="flex items-center pt-4">
         @php
             /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */

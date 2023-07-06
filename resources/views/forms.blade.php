@@ -6,7 +6,16 @@
             @livewire('formulario.showformsclientes', ['idformulario' => $id])
 
         </div>
-
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 mx-auto">
+                {{-- <div class="flex flex-col items-center mr-auto sm:flex-row"> --}}
+                <img class="mx-auto" src="{{ asset('img/Gperal.png') }}" alt="logo" width="150px" height="150px" />
+                <p class="pt-5 font-light font-body text-primary dark:text-white sm:pt-0">
+                    ©HotelGarciaPeral
+                </p>
+                {{-- </div> --}}
+            </div>
+        </div>
     </div>
 
 </x-forms-layout>

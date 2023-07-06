@@ -37,5 +37,6 @@ class Showformsclientes extends Component
         $getformulario->formulario_id = $this->idformulario;
         $getformulario->statusRegistro = "completado";
         $getformulario->save();
+        toastr()->success('¡Enviado correctamente!', '');
     }
 }
