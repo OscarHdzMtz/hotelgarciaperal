@@ -9,7 +9,7 @@
                     {{ $getDatosFormulario[0]['nombre'] }}
                 </h3>
                 {{-- <div class="pt-3 text-center sm:w-3/4"> --}}
-                <p class="mt-3 font-light text-black text-1xl font-body text-secondary dark:text-black">
+                <p class="mt-3 text-lg font-semibold transition-colors font-body text-primary dark:text-black">
                     {{ $getDatosFormulario[0]['descripcion'] }}
                 </p>
                 {{-- </div> --}}

@@ -5,15 +5,21 @@
 
             @livewire('formulario.showformsclientes', ['idformulario' => $id])
 
-        </div>
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 mx-auto">
-                {{-- <div class="flex flex-col items-center mr-auto sm:flex-row"> --}}
+        </div>        
+        <div class="container mx-auto mb-2">
+            <div class="grid grid-cols-1 mx-auto">                
                 <img class="mx-auto" src="{{ asset('img/Gperal.png') }}" alt="logo" width="150px" height="150px" />
-                <p class="pt-5 font-light font-body text-primary dark:text-white sm:pt-0">
-                    ©HotelGarciaPeral
-                </p>
-                {{-- </div> --}}
+                {{-- <p class="pt-5 text-center transition-colors text-md font-body text-primary dark:text-black sm:pt-0">
+                    <strong>©HotelGarciaPeral {{ date('Y') }} </strong>| Todos los derechos reservados
+                </p>  --}}                             
+                <div class="grid grid-cols-1 -mt-5 md:mt-0 md:grid-cols-2">
+                    <p class="pt-5 font-semibold text-center transition-colors md:text-right text-md font-body text-primary dark:text-black sm:pt-0">
+                        ©HotelGarciaPeral {{ date('Y') }} |
+                    </p>                    
+                    <p class="text-center transition-colors md:text-left text-md font-body text-primary dark:text-black sm:pt-0">
+                        &#160Todos los derechos reservados
+                    </p>
+                </div>  
             </div>
         </div>
     </div>
