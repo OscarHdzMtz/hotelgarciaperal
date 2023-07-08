@@ -18,6 +18,9 @@
         <form wire:submit.prevent="finalizarRegistroFormulario">
             <div class="container mx-auto">
                 <div class="py-1 rounded bg-zinc-400/50 lg:px-8 lg:py-5">
+                    <div class="text-center text-red-700">
+                        <strong>*</strong><small class="text-black"> Indica que la pregunta es obligatoria</small>
+                    </div>
                     <div class="pt-8 lg:pt-12">
                         @foreach ($preguntasFormulario as $preguntas)
                             @livewire('formulario.respuestasformulario', ['preguntas' => $preguntas, 'wireidporregistro' => $wireidporregistro], key($preguntas->id))

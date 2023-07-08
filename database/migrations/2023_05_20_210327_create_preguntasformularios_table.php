@@ -19,13 +19,14 @@ return new class extends Migration
             $table->longText("pregunta")->nullable();
             $table->longText("tipodecomponente")->nullable();
             $table->integer("numerodecomponente")->nullable();
-            $table->string("valordecomponente")->nullable();
+            $table->longText("valordecomponente")->nullable();
             $table->boolean("campoobligatorio")->nullable();
             $table->integer("ordenpreguntas")->nullable();
             $table->integer("ordencomponentes")->nullable();
             $table->integer("maxdecaracteres")->nullable();
             $table->integer("mindecaracteres")->nullable();
             $table->string("tipodedatos")->nullable();
+            $table->boolean("asignarpuntuacion")->nullable();
             $table->string("estado")->nullable();
             $table->string("etiqueta")->nullable();
             $table->string("adicional")->nullable();

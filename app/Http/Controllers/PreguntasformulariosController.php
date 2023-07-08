@@ -24,6 +24,15 @@ class PreguntasformulariosController extends Controller
         $formulario_pregunta->tipodecomponente = $request->tipodecomponente;
         $formulario_pregunta->campoobligatorio = $request->obligatorio;
 
+        if ($formulario_pregunta->tipodedatos == "Selecciona una opcion") {
+            $formulario_pregunta->tipodedatos = "text";
+        }else{
+            $formulario_pregunta->tipodedatos = $request->tipodedatos;
+        }
+        $formulario_pregunta->maxdecaracteres = $request->maxdecaracteres;
+        $formulario_pregunta->mindecaracteres = $request->mindecaracteres;
+
+
         $valordecomponente = $request->valordecomponente;
         $valordecomponenteLimpio = str_replace(",", '|', $valordecomponente);
         $formulario_pregunta->valordecomponente = $valordecomponenteLimpio;        
