@@ -1,4 +1,5 @@
-<div id="{{ $item->id . 100 }}" style="display: none; margin-left: -10px" class="border-l-4 border-indigo-500">
+<div id="{{ $item->id . 100 }}" style="display: none; margin-left: -10px" class="border-l-4 border-indigo-500"
+    x-data="{ selecttipodato: '{{ $item->tipodedatos }}' }">
     @php
         /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
         $valorcomponenteArray = explode('|', $item->valordecomponente);
@@ -12,33 +13,34 @@
     @endphp
     <div x-data="{ enviarcomponentespreguntas: '{{ $setcomponentepregunta }}', id: '{{ $idpregunta }}' }" class="container px-4 mx-auto mt-5 {{-- bg-red-400  --}}rounded">
         <div x-data="getComponentYsaveInLocalStorage()" x-init="saveComponenteALocalStorage(enviarcomponentespreguntas, id)" class="py-6 mb-5 px-7">
-            <div x-data="{ selects: '{{ $item->tipodecomponente }}' }" class="flex flex-wrap">
-                <div class="w-full mb-10 md:w-1/2 md:mb-0">
+            <div x-data="{ selects: '{{ $item->tipodecomponente }}' }" {{-- class="flex flex-wrap" --}}
+                class="grid grid-cols-1 gap-5 mb-5 md:gap-15 md:grid-cols-2">
+                {{-- <div class="w-full mb-10 md:w-1/2 md:mb-0"> --}}
+                <div class="">
                     <div class="mx-1 mb-6">
-                        <x-jet-label>
-                            <strong>PREGUNTA</strong>
-                        </x-jet-label>
-                        <x-jet-input name="pregunta" id="pregunta-{{ $idpregunta }}"
-                            class="text-black border-green-500 focus:ring-green-600 focus:border-green-600"
-                            value='{!! $item->pregunta != '' ? $item->pregunta : 'Ingrese la pregunta' !!}' />
+                        <label for="success"
+                            class="block mb-2 font-semibold text-green-700 text-md dark:text-green-500">Pregunta</label>
+                        <input type="text" name="pregunta" id="pregunta-{{ $idpregunta }}"
+                            class="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                            value='{!! $item->pregunta != '' ? $item->pregunta : 'Ingrese la pregunta' !!}'>
                     </div>
                     <template x-if="selects === 'input'">
                         <div class="mx-10 mb-6">
-                            <x-jet-label>
-                                <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
-                            </x-jet-label>
-                            <x-jet-input
-                                class="text-sm text-gray-900 border border-green-600 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
-                                placeholder="respuesta de texto corto" />
+                            <label for="success"
+                                class="block mb-2 font-semibold text-green-700 text-md dark:text-green-500">Tipo de
+                                respúesta para la pregunta</label>
+
+                            <input type="text" name="pregunta"
+                                class="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500">
                         </div>
                     </template>
                     <template x-if="selects === 'textarea'">
                         <div class="mx-5">
-                            <x-jet-label>
-                                <strong>TIPO DE RESPUESTA PARA LA PREGUNTA</strong>
-                            </x-jet-label>
+                            <label for="success"
+                                class="block mb-2 font-semibold text-green-700 text-md dark:text-green-500">Tipo de
+                                respúesta para la pregunta</label>
                             <textarea id="" rows="4"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-green-500 focus:border-green-500 border-green-600"></textarea>
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-green-500 focus:border-green-500 border-green-600 dark:bg-gray-700 dark:border-green-500""></textarea>
                         </div>
                     </template>
                     <template x-if="selects === 'radio'">
@@ -46,12 +48,12 @@
                             newTodo: '',
                             {{ $idPreguntaLocalStorage }}: JSON.parse(localStorage.getItem('{{ $idPreguntaLocalStorage }}') || '[]')
                         }" x-init="$watch('{{ $idPreguntaLocalStorage }}', (val) => localStorage.setItem('{{ $idPreguntaLocalStorage }}', JSON.stringify(val)))">
-                            <div {{-- x-data="{ todos: {{ $idPreguntaLocalStorage }} }" --}}>
+                            <div>
                                 <form
                                     @submit.stop.prevent="{{ $idPreguntaLocalStorage }} = [].concat({ id: {{ $item->id }} + badId(), text: newTodo }, {{ $idPreguntaLocalStorage }}); newTodo = '';">
                                     <div class="flex items-center py-2 border-b border-teal-500">
                                         <input
-                                            class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
+                                            class="w-full px-2 py-1 mr-3 font-semibold leading-tight text-green-600 bg-transparent border-none appearance-none text-md focus:outline-none"
                                             placeholder="Agregar una opcion " x-model="newTodo">
                                         <button
                                             class="flex-shrink-0 px-2 py-1 text-sm text-white bg-teal-500 border-4 border-teal-500 rounded hover:bg-teal-700 hover:border-teal-700">
@@ -61,9 +63,9 @@
                                     </div>
                                 </form>
                                 <ul class="mt-3 mb-2 border-2 border-teal-500">
-                                    <div class="ml-3">
-                                        Opciones agregadas:
-                                    </div>
+                                    <label for="success"
+                                        class="block mt-2 mb-2 ml-3 font-semibold text-green-500 text-md dark:text-green-500">Opciones
+                                        agregadas</label>
                                     <template x-for="todo in {{ $idPreguntaLocalStorage }}" :key="todo.id">
                                         <li class="ml-3 mr-3">
                                             {{-- <span x-text="todo.text"></span> --}}
@@ -199,16 +201,31 @@
                                     {{ $item->campoobligatorio == 1 ? "checked='checked'" : '' }}>
                             </div>
                             <div>
-                                <label for="">Asignar Puntuacion</label>
-                                <input id="obligatorio-{{ $idpregunta }}" name="obligatorio" type="checkbox"
-                                    {{ $item->campoobligatorio == 1 ? "checked='checked'" : '' }}>
+                                <template x-if="selects === 'radio' || selects === 'checkbox'">
+                                    <div>
+                                        <label for="">Asignar Puntuacion</label>
+                                        <input id="asignarpuntuacion-{{ $idpregunta }}" name="asignarpuntuacion	"
+                                            type="checkbox"
+                                            {{ $item->asignarpuntuacion == 1 ? "checked='checked'" : '' }}>
+                                    </div>
+                                </template>
+                                <template x-if="selects === 'input' && selecttipodato === 'number'">
+                                    <div>
+                                        <label for="">Asignar Puntuacion</label>
+                                        <input id="asignarpuntuacion-{{ $idpregunta }}" name="asignarpuntuacion	"
+                                            type="checkbox"
+                                            {{ $item->asignarpuntuacion == 1 ? "checked='checked'" : '' }}>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full mb-10 ml-5 md:w-1/4 md:mb-0">
+                <div {{-- class="w-full mb-10 ml-5 md:w-1/4 md:mb-0" --}} {{-- x-data="{ selecttipodato: '{{ $item->tipodedatos }}' }" --}}>
                     <div class="mx-3">
-                        <h1>Tipo de componente de respuesta</h1>
+                        <label for="success"
+                            class="block mb-2 font-semibold text-green-700 text-md dark:text-green-500">Tipo de
+                            componente de respuesta</label>
                         <select id="tipodecomponente-{{ $idpregunta }}" name="tipodecomponente" x-model="selects"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="input"
@@ -237,8 +254,10 @@
                         </select>
                         {{-- <span x-text="selects"></span> --}}
                         <template x-if="selects === 'input'">
-                            <div class="mt-3 mb-5" x-data="{ selecttipodato: '{{ $item->tipodedatos }}' }">
-                                <h1>Tipo de datos a aceptar</h1>
+                            <div class="mt-3 mb-5">
+                                <label for="success"
+                                    class="block mb-2 font-semibold text-green-700 text-md dark:text-green-500">Tipo de
+                                    datos a aceptar</label>
                                 <select id="tipodedatos-{{ $idpregunta }}" name="tipodedatos"
                                     x-model="selecttipodato" required
                                     class="bg-gray-50 mt-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -257,7 +276,9 @@
                                 </select>
                                 <template x-if="selecttipodato === 'text' || selecttipodato === 'tel'">
                                     <div>
-                                        <h1 class="mt-3">Numero minimo y maximo de caracter</h1>
+                                        <label for="success"
+                                            class="block mb-2 font-semibold text-green-700 text-md dark:text-green-500">Numero
+                                            minimo y maximo de caracter</label>
                                         <div class="grid grid-cols-2 gap-3 mt-3">
                                             <div>
                                                 <input id="mindecaracteres-{{ $idpregunta }}" type="number"
@@ -298,6 +319,15 @@
         var pregunta = document.getElementById('pregunta-' + pregunta_id).value;
         var obligatorio = document.getElementById('obligatorio-' + pregunta_id);
         var tipodecomponente = document.getElementById('tipodecomponente-' + pregunta_id).value;
+        var asignarpuntuacion = document.getElementById('asignarpuntuacion-' + pregunta_id);                
+        
+        //
+        if (asignarpuntuacion == null) {                    
+            asignarpuntuacion= false            
+        }else{
+            asignarpuntuacion = asignarpuntuacion.checked
+        }
+
         if (tipodecomponente == "input") {
             var tipodedatos = document.getElementById('tipodedatos-' + pregunta_id).value;
             if (tipodedatos == "text" || tipodedatos == "tel") {
@@ -324,8 +354,10 @@
                 tipodecomponente: tipodecomponente,
                 tipodedatos: tipodedatos,
                 mindecaracteres: mindecaracteres,
-                maxdecaracteres: maxdecaracteres
-
+                maxdecaracteres: maxdecaracteres,                 
+                asignarpuntuacion: asignarpuntuacion                
+                /* asignarpuntuacion =! null ? asignarpuntuacion.checked: asignarpuntuacion */
+                /* asignarpuntuacion: asignarpuntuacion.checked                 */
             })
             .then(function(response) {
                 // La solicitud AJAX se completó correctamente

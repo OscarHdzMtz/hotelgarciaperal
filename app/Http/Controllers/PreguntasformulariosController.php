@@ -31,7 +31,8 @@ class PreguntasformulariosController extends Controller
         }
         $formulario_pregunta->maxdecaracteres = $request->maxdecaracteres;
         $formulario_pregunta->mindecaracteres = $request->mindecaracteres;
-
+        
+        $formulario_pregunta->asignarpuntuacion = $request->asignarpuntuacion;
 
         $valordecomponente = $request->valordecomponente;
         $valordecomponenteLimpio = str_replace(",", '|', $valordecomponente);
