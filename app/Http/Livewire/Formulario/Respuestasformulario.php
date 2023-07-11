@@ -11,7 +11,7 @@ class Respuestasformulario extends Component
     public $preguntas;
     public $valoresRespuesta;
     public $valoresCheckbox = [];
-
+    
     public $wireidporregistro; //WIRE ID QUE SE GUARDARA POR CADA REGISTRO PARA DIFERENCIAR
 
     public function mount(preguntasformularios $preguntas, $wireidporregistro)
@@ -41,7 +41,7 @@ class Respuestasformulario extends Component
         }
 
         /* OBTIENE EL PROMERO SI LA PREGUNTA TIENE ACTIVADO LA OPCION ASIGNARPROMEDIO */
-        if ($this->preguntas->asignarpuntuacion === 1) {
+        if ($this->preguntas->asignarpuntuacion == 1) {
             $obtenerPromedio = respuestasformularios::where('pregunta_id', $pregunta_id)->where('wireidporregistro', $this->wireidporregistro)->get()->toarray();
         } else {
             $obtenerPromedio = [];
@@ -192,7 +192,7 @@ class Respuestasformulario extends Component
             $consult_pregunta = preguntasformularios::findOrfail($this->preguntas->id);
             $promedio = 0.0;
             /* validamos a que tipo de componentes obtenemos el promedio */
-            if ($consult_pregunta->tipodecomponente === "radio" || $consult_pregunta->tipodecomponente === 'select') {
+            if ($consult_pregunta->asignarpuntuacion === 1) {
                 /* OBTENERMOS EL NUMERO DE COMPONENTES */
                 $valordecomponenteArray = explode("|", $consult_pregunta->valordecomponente);
                 $promedio = round($valorcomponenteRecibido * 100 / count($valordecomponenteArray), 2);

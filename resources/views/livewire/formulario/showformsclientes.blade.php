@@ -1,4 +1,7 @@
 <div>
+    @if ($mostrarModalFinalFormulario === true)
+        @include('pages.formularios.modalPorcentajeTotal')
+    @endif
     <div id="main">
         <div class="container mx-auto">
             <div class="bg-red-300 rounded {{-- px-7 --}}">
@@ -29,9 +32,9 @@
                 </div>
                 <div class="grid grid-cols-1 gap-2 py-5 my-2 lg:py-8 sm:grid-cols-7">
                     <div class="col-span-1 sm:col-span-3">
-                        <h1
+                        {{-- <h1
                             class="px-6 py-3 font-sans text-xs font-bold text-center text-black uppercase align-middle text-md text-black-500 ">
-                            Texto de prueba garcia peral!</h1>
+                            Texto de prueba garcia peral!</h1> --}}
                     </div>
                     <div class="col-span-1 mx-auto sm:col-span-2">
                         <button
