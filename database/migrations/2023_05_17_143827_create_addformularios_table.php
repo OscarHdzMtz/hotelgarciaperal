@@ -19,6 +19,17 @@ return new class extends Migration
             $table->string('descripcion')->nullable();
             $table->string('img')->nullable();
             $table->string('etiqueta')->nullable();
+            $table->string('subtitulo')->nullable();
+            $table->string('tipoletratitulo')->nullable();
+            $table->string('tamanoletratitulo')->nullable();
+            $table->string('colorletratitulo')->nullable();
+            $table->string('colorfondotitulo')->nullable();                                                               
+            $table->string('textodespedidamodal')->nullable();
+            $table->string('imagenFooter')->nullable();
+            $table->string('textoFooter')->nullable();
+            $table->string('copyright')->nullable();         
+            $table->string('textoadicional')->nullable();            
+            $table->string('redireccionarbotonmodal')->nullable();            
             $table->integer('orden')->nullable();
             $table->timestamps();
         });
