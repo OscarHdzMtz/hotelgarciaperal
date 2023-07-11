@@ -1,4 +1,4 @@
-<div class="px-5 py-5 mb-5 ml-3 mr-3 bg-indigo-100 rounded">    
+<div class="px-5 py-5 mb-5 ml-3 mr-3 bg-indigo-100 rounded">
     <div class="container">
         <div class="flex flex-col justify-between md:flex-col">
             <div class="">
@@ -46,10 +46,10 @@
                 </label>
             </div>
         @elseif($preguntas->tipodecomponente === 'radio')
-            <div>
-                @for ($radio = 0; $radio < $preguntas->numerodecomponente; $radio++)
-                    <div
-                        class="flex items-center px-3 {{-- pl-4 --}} mt-2 border border-green-500 rounded dark:border-green-500">
+            {{-- <div> --}}
+                {{-- @for ($radio = 0; $radio < $preguntas->numerodecomponente; $radio++) --}}
+                {{-- <div
+                        class="flex items-center px-3 mt-2 border border-green-500 rounded dark:border-green-500">
                         <label class="relative flex items-center p-3 rounded-full cursor-pointer" for="pink"
                             wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')">
                             <input id="pink" name="radio-{{ $idpregunta }}" type="radio"
@@ -66,9 +66,32 @@
                         <label class="mt-px font-light text-gray-700 cursor-pointer select-none" for="html">
                             <small>{{ $valorcomponenteArray[$radio] }}</small>
                         </label>
-                    </div>
-                @endfor
-            </div>
+                    </div> --}}
+                {{-- @endfor --}}
+                <div class="grid grid-cols-5 gap-2">
+                    @for ($radio = 0; $radio < $preguntas->numerodecomponente; $radio++)
+                        <div class="items-center px-3 mt-2 text-center border border-green-500 rounded dark:border-green-500">
+                            <label class="relative flex items-center p-3 rounded-full cursor-pointer" for="pink"
+                                wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')">
+                                <input id="pink" name="radio-{{ $idpregunta }}" type="radio"
+                                    class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-green-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
+                                    {{ $preguntas->campoobligatorio == 1 ? 'required' : '' }} />
+                                <div
+                                    class="absolute text-green-500 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16"
+                                        fill="currentColor">
+                                        <circle data-name="ellipse" cx="8" cy="8" r="8">
+                                        </circle>
+                                    </svg>
+                                </div>
+                            </label>
+                            <label class="mt-px text-lg font-bold text-gray-700 cursor-pointer select-none" for="html">
+                                <small>{{ $valorcomponenteArray[$radio] }}</small>
+                            </label>
+                        </div>
+                    @endfor
+                </div>
+            {{-- </div> --}}
         @elseif($preguntas->tipodecomponente === 'checkbox')
             <div>
                 @for ($checkbox = 0; $checkbox < $preguntas->numerodecomponente; $checkbox++)
