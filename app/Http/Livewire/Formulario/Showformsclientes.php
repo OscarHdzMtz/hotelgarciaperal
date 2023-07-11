@@ -47,7 +47,7 @@ class Showformsclientes extends Component
         $getformulario->puntuaciontotal = $this->consultarPorcentajePorPregunta();
         $getformulario->save();
         $this->mostrarModalFinalFormulario = true;
-        toastr()->success('¡Enviado correctamente!', '');
+        /* toastr()->success('¡Enviado correctamente!', ''); */
     }
     function consultarPorcentajePorPregunta()
     {

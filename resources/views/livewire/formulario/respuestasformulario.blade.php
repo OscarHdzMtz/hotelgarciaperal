@@ -31,7 +31,7 @@
                 <input type="{{ $preguntas->tipodedatos }}"
                     {{ $preguntas->mindecaracteres > 0 ? 'minlength=' . $preguntas->mindecaracteres . ' ' : '' }}
                     {{ $preguntas->maxdecaracteres > 0 ? 'maxlength=' . $preguntas->maxdecaracteres . ' ' : '' }}
-                    class="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-white dark:border-green-500"
+                    class="bg-green-50 border border-green-500 text-black font-semibold placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-white dark:border-green-500"
                     placeholder="Ingrese su respuesta" {{ $preguntas->campoobligatorio == 1 ? 'required' : '' }}
                     wire:model='valoresRespuesta'>
             </div>

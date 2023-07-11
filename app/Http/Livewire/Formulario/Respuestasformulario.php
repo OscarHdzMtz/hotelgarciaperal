@@ -72,7 +72,7 @@ class Respuestasformulario extends Component
             $respuestaActualizar->puntuacionporregistro = $this->puntucionDeLaRespuesta($this->valoresRespuesta);
 
             $respuestaActualizar->update();
-            toastr()->warning("Actualizados correctamente!", "DATOS");
+            /* toastr()->warning("Actualizados correctamente!", "DATOS"); */
         } else {
             $respuestas = new respuestasformularios();
             $respuestas->wireidporpregunta = $wireidporpregunta;
@@ -113,7 +113,7 @@ class Respuestasformulario extends Component
             $respuestaActualizar->puntuacionporregistro = $this->puntucionDeLaRespuesta($valorcomponenteRecibido);
 
             $respuestaActualizar->update();
-            toastr()->warning("Actualizados correctamente!", "DATOS");
+            /* toastr()->warning("Actualizados correctamente!", "DATOS"); */
         } else {
             $respuestas = new respuestasformularios();
             $respuestas->wireidporpregunta = $wireidporpregunta;
@@ -154,7 +154,7 @@ class Respuestasformulario extends Component
                 $valorcomponenteRecibido
             );
             $respuestaActualizar->update();
-            toastr()->warning("Actualizados correctamente!", "DATOS");
+            /* toastr()->warning("Actualizados correctamente!", "DATOS"); */
         } else {
             $respuestas = new respuestasformularios();
             /* $this->convertirValoresCheckboxArray($valorcomponenteRecibido); */
