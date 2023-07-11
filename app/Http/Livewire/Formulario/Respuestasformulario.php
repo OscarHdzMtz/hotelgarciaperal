@@ -40,7 +40,14 @@ class Respuestasformulario extends Component
             );
         }
 
-        return view("livewire.formulario.respuestasformulario");
+        /* OBTIENE EL PROMERO SI LA PREGUNTA TIENE ACTIVADO LA OPCION ASIGNARPROMEDIO */
+        if ($this->preguntas->asignarpuntuacion === 1) {
+            $obtenerPromedio = respuestasformularios::where('pregunta_id', $pregunta_id)->where('wireidporregistro', $this->wireidporregistro)->get()->toarray();
+        } else {
+            $obtenerPromedio = [];
+        }
+
+        return view("livewire.formulario.respuestasformulario", compact('obtenerPromedio'));
     }
 
     public function insertarRespuestas(
@@ -61,6 +68,9 @@ class Respuestasformulario extends Component
             );
             $respuestaActualizar->wireidporregistro = $this->wireidporregistro;
             $respuestaActualizar->respuesta = $this->valoresRespuesta;
+
+            $respuestaActualizar->puntuacionporregistro = $this->puntucionDeLaRespuesta($this->valoresRespuesta);
+
             $respuestaActualizar->update();
             toastr()->warning("Actualizados correctamente!", "DATOS");
         } else {
@@ -70,6 +80,10 @@ class Respuestasformulario extends Component
             $respuestas->formulario_id = $formulario_id;
             $respuestas->pregunta_id = $pregunta_id;
             $respuestas->respuesta = $this->valoresRespuesta;
+
+            /* CALCULAR EL PROMEDIO POR PREGUNTA */
+            $respuestas->puntuacionporregistro = $this->puntucionDeLaRespuesta($this->valoresRespuesta);
+
             $respuestas->save();
             toastr()->success("Correctamente", "GUARDADO");
         }
@@ -94,6 +108,10 @@ class Respuestasformulario extends Component
             );
             $respuestaActualizar->wireidporregistro = $this->wireidporregistro;
             $respuestaActualizar->respuesta = $valorcomponenteRecibido;
+
+            /* RECCALCULAR EL PROMEDIO POR PREGUNTA */
+            $respuestaActualizar->puntuacionporregistro = $this->puntucionDeLaRespuesta($valorcomponenteRecibido);
+
             $respuestaActualizar->update();
             toastr()->warning("Actualizados correctamente!", "DATOS");
         } else {
@@ -103,6 +121,10 @@ class Respuestasformulario extends Component
             $respuestas->formulario_id = $formulario_id;
             $respuestas->pregunta_id = $pregunta_id;
             $respuestas->respuesta = $valorcomponenteRecibido;
+
+            /* CALCULAR EL PROMEDIO POR PREGUNTA */
+            $respuestas->puntuacionporregistro = $this->puntucionDeLaRespuesta($valorcomponenteRecibido);
+
             $respuestas->save();
             toastr()->success("Correctamente", "GUARDADO");
         }
@@ -162,5 +184,20 @@ class Respuestasformulario extends Component
             0,
             strlen($valoresComponenteString) - 1
         );
+    }
+
+    public function puntucionDeLaRespuesta($valorcomponenteRecibido)
+    {
+        if (is_numeric($valorcomponenteRecibido)) {
+            $consult_pregunta = preguntasformularios::findOrfail($this->preguntas->id);
+            $promedio = 0.0;
+            /* validamos a que tipo de componentes obtenemos el promedio */
+            if ($consult_pregunta->tipodecomponente === "radio" || $consult_pregunta->tipodecomponente === 'select') {
+                /* OBTENERMOS EL NUMERO DE COMPONENTES */
+                $valordecomponenteArray = explode("|", $consult_pregunta->valordecomponente);
+                $promedio = round($valorcomponenteRecibido * 100 / count($valordecomponenteArray), 2);
+            }
+            return $promedio;
+        }
     }
 }

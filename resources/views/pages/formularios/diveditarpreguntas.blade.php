@@ -201,7 +201,7 @@
                                     {{ $item->campoobligatorio == 1 ? "checked='checked'" : '' }}>
                             </div>
                             <div>
-                                <template x-if="selects === 'radio' || selects === 'checkbox'">
+                                <template x-if="selects === 'radio' || selects === 'select'">
                                     <div>
                                         <label for="">Asignar Puntuacion</label>
                                         <input id="asignarpuntuacion-{{ $idpregunta }}" name="asignarpuntuacion	"

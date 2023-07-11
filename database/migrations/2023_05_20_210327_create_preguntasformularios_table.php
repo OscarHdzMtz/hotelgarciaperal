@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer("maxdecaracteres")->nullable();
             $table->integer("mindecaracteres")->nullable();
             $table->string("tipodedatos")->nullable();
-            $table->boolean("asignarpuntuacion")->nullable();
+            $table->boolean("asignarpuntuacion")->nullable();            
             $table->string("estado")->nullable();
             $table->string("etiqueta")->nullable();
             $table->string("adicional")->nullable();

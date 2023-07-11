@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer("formulario_id");            
             $table->integer("pregunta_id");
             $table->longText("respuesta")->nullable();            
+            $table->double("puntuacionporregistro")->nullable();
+            $table->double("puntuaciontotal")->nullable();  
             $table->string("direccionIPPublica")->nullable();
             $table->string("direccionIPLocal")->nullable(); 
             $table->string("ciudad")->nullable(); 
