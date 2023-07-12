@@ -8,7 +8,7 @@
         </div>        
         <div class="container mx-auto mb-2">
             <div class="grid grid-cols-1 mx-auto">                
-                <img class="mx-auto" src="{{ asset('img/Gperal.png') }}" alt="logo" width="150px" height="150px" />
+                <img class="mx-auto" src="{{ asset('img/Gperal.png') }}" alt="logo" width="550px" height="550px" />
                 {{-- <p class="pt-5 text-center transition-colors text-md font-body text-primary dark:text-black sm:pt-0">
                     <strong>©HotelGarciaPeral {{ date('Y') }} </strong>| Todos los derechos reservados
                 </p>  --}}                             
