@@ -43,7 +43,7 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-green-500 focus:border-green-500 border-green-600 dark:bg-gray-700 dark:border-green-500""></textarea>
                         </div>
                     </template>
-                    <template x-if="selects === 'radio'">
+                    <template x-if="selects === 'radio' || selects === 'radio5Estrellas'">
                         <div x-data="{
                             newTodo: '',
                             {{ $idPreguntaLocalStorage }}: JSON.parse(localStorage.getItem('{{ $idPreguntaLocalStorage }}') || '[]')
@@ -71,9 +71,14 @@
                                             {{-- <span x-text="todo.text"></span> --}}
                                             <div
                                                 class="flex items-center pl-4 mt-2 border border-gray-200 rounded dark:border-gray-700">
-                                                <input id="bordered-radio-1" type="radio" value=""
-                                                    name="bordered-radio"
-                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                @if ($item->tipodecomponente == 'radio')
+                                                    <input id="bordered-radio-1" type="radio" value=""
+                                                        name="bordered-radio"
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                @elseif ($item->tipodecomponente == 'radio5Estrellas')
+                                                    <label
+                                                        class="px-3 mb-1 text-2xl font-bold md:px-6 md:text-4xl text-slate-800">★</label>
+                                                @endif
                                                 <label name="prueba" for="bordered-radio-1"
                                                     class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-700"
                                                     x-text="todo.text"></label>
@@ -201,7 +206,8 @@
                                     {{ $item->campoobligatorio == 1 ? "checked='checked'" : '' }}>
                             </div>
                             <div>
-                                <template x-if="selects === 'radio' || selects === 'select'">
+                                <template
+                                    x-if="selects === 'radio' || selects === 'select' || selects === 'radio5Estrellas'">
                                     <div>
                                         <label for="">Asignar Puntuacion</label>
                                         <input id="asignarpuntuacion-{{ $idpregunta }}" name="asignarpuntuacion	"
@@ -241,6 +247,10 @@
                                 {{ $item->tipodecomponente === 'radio' ? 'selected="selected"' : '' }}>
                                 Opcion
                                 multiple
+                            </option>
+                            <option value="radio5Estrellas"
+                                {{ $item->tipodecomponente === 'radio' ? 'selected="selected"' : '' }}>
+                                Puntuacion 5 Estrellas
                             </option>
                             <option value="checkbox"
                                 {{ $item->tipodecomponente === 'checkbox' ? 'selected="selected"' : '' }}>
@@ -319,12 +329,12 @@
         var pregunta = document.getElementById('pregunta-' + pregunta_id).value;
         var obligatorio = document.getElementById('obligatorio-' + pregunta_id);
         var tipodecomponente = document.getElementById('tipodecomponente-' + pregunta_id).value;
-        var asignarpuntuacion = document.getElementById('asignarpuntuacion-' + pregunta_id);                
-        
+        var asignarpuntuacion = document.getElementById('asignarpuntuacion-' + pregunta_id);
+
         //
-        if (asignarpuntuacion == null) {                    
-            asignarpuntuacion= false            
-        }else{
+        if (asignarpuntuacion == null) {
+            asignarpuntuacion = false
+        } else {
             asignarpuntuacion = asignarpuntuacion.checked
         }
 
@@ -354,8 +364,8 @@
                 tipodecomponente: tipodecomponente,
                 tipodedatos: tipodedatos,
                 mindecaracteres: mindecaracteres,
-                maxdecaracteres: maxdecaracteres,                 
-                asignarpuntuacion: asignarpuntuacion                
+                maxdecaracteres: maxdecaracteres,
+                asignarpuntuacion: asignarpuntuacion
                 /* asignarpuntuacion =! null ? asignarpuntuacion.checked: asignarpuntuacion */
                 /* asignarpuntuacion: asignarpuntuacion.checked                 */
             })

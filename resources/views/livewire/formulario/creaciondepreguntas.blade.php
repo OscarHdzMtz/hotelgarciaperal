@@ -79,7 +79,7 @@
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 border-green-600"
                                         disabled></textarea>
                                 </div>
-                            @elseif ($item->tipodecomponente == 'radio')
+                            @elseif ($item->tipodecomponente == 'radio' || $item->tipodecomponente == 'radio5Estrellas')
                                 <div class="mx-5">
                                     @php
                                         /* CONVERTIRMOS LA OPCIONES DE SRTING A ARRAY */
@@ -93,9 +93,15 @@
                                         @for ($radio = 0; $radio < $item->numerodecomponente; $radio++)
                                             <div
                                                 class="flex items-center pl-4 mt-2 border border-gray-200 rounded dark:border-gray-700">
-                                                <input id="bordered-radio-1" type="radio" value=""
-                                                    name="bordered-radio"
-                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                @if ($item->tipodecomponente == 'radio5Estrellas')
+                                                    <label
+                                                        class="px-3 mb-1 text-2xl font-bold md:px-6 md:text-4xl text-slate-800"
+                                                        for="radio{{ $radio }}">★</label>
+                                                @elseif ($item->tipodecomponente == 'radio')
+                                                    <input id="bordered-radio-1" type="radio" value=""
+                                                        name="bordered-radio"
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                @endif
 
                                                 @if ($item->valordecomponente != '')
                                                     <label id="{{ $item->id }}" for="bordered-radio-1"
@@ -184,6 +190,9 @@
                                         Opcion
                                         multiple
                                     </option>
+                                    <option value="{{ $item->tipodecomponente }}"
+                                        {{ $item->tipodecomponente === 'radio5Estrellas' ? 'selected="selected"' : '' }}>
+                                        Puntuacion 5 Estrellas</option>
                                     <option value="{{ $item->tipodecomponente }}"
                                         {{ $item->tipodecomponente === 'checkbox' ? 'selected="selected"' : '' }}>
                                         Casilla

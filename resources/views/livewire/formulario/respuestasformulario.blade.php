@@ -47,8 +47,8 @@
             </div>
         @elseif($preguntas->tipodecomponente === 'radio')
             {{-- <div> --}}
-                {{-- @for ($radio = 0; $radio < $preguntas->numerodecomponente; $radio++) --}}
-                {{-- <div
+            {{-- @for ($radio = 0; $radio < $preguntas->numerodecomponente; $radio++) --}}
+            {{-- <div
                         class="flex items-center px-3 mt-2 border border-green-500 rounded dark:border-green-500">
                         <label class="relative flex items-center p-3 rounded-full cursor-pointer" for="pink"
                             wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')">
@@ -67,31 +67,44 @@
                             <small>{{ $valorcomponenteArray[$radio] }}</small>
                         </label>
                     </div> --}}
-                {{-- @endfor --}}
-                <div class="grid grid-cols-5 gap-2">
-                    @for ($radio = 0; $radio < $preguntas->numerodecomponente; $radio++)
-                        <div class="items-center px-3 mt-2 text-center border border-green-500 rounded dark:border-green-500">
-                            <label class="relative flex items-center p-3 rounded-full cursor-pointer" for="pink"
-                                wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')">
-                                <input id="pink" name="radio-{{ $idpregunta }}" type="radio"
-                                    class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-green-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
-                                    {{ $preguntas->campoobligatorio == 1 ? 'required' : '' }} />
-                                <div
-                                    class="absolute text-green-500 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16"
-                                        fill="currentColor">
-                                        <circle data-name="ellipse" cx="8" cy="8" r="8">
-                                        </circle>
-                                    </svg>
-                                </div>
-                            </label>
-                            <label class="mt-px text-lg font-bold text-gray-700 cursor-pointer select-none" for="html">
-                                <small>{{ $valorcomponenteArray[$radio] }}</small>
-                            </label>
-                        </div>
-                    @endfor
-                </div>
+            {{-- @endfor --}}
+            <div class="grid grid-cols-5 gap-2">
+                @for ($radio = 0; $radio < $preguntas->numerodecomponente; $radio++)
+                    <div
+                        class="items-center px-3 mt-2 text-center border border-green-500 rounded dark:border-green-500">
+                        <label class="relative flex items-center p-3 rounded-full cursor-pointer" for="pink"
+                            wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')">
+                            <input id="pink" name="radio-{{ $idpregunta }}" type="radio"
+                                class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-green-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
+                                {{ $preguntas->campoobligatorio == 1 ? 'required' : '' }} />
+                            <div
+                                class="absolute text-green-500 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16"
+                                    fill="currentColor">
+                                    <circle data-name="ellipse" cx="8" cy="8" r="8">
+                                    </circle>
+                                </svg>
+                            </div>
+                        </label>
+                        <label class="mt-px text-lg font-bold text-gray-700 cursor-pointer select-none" for="html">
+                            <small>{{ $valorcomponenteArray[$radio] }}</small>
+                        </label>
+                    </div>
+                @endfor
+            </div>
             {{-- </div> --}}
+        @elseif($preguntas->tipodecomponente === 'radio5Estrellas')
+            <form>
+                <p class="mx-auto md:mx-0 clasificacion">
+                    @for ($radio = $preguntas->numerodecomponente - 1; $radio >= 0; $radio--)
+                        <input style="display: none"
+                            wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')"
+                            id="radio{{ $radio }}" type="radio" name="radio5Estrelas-{{ $idpregunta }}">
+                        <label class="px-3 mb-1 text-2xl font-bold md:px-6 md:text-4xl text-slate-800"
+                            for="radio{{ $radio }}">★</label>
+                    @endfor
+                </p>
+            </form>
         @elseif($preguntas->tipodecomponente === 'checkbox')
             <div>
                 @for ($checkbox = 0; $checkbox < $preguntas->numerodecomponente; $checkbox++)
@@ -133,3 +146,25 @@
         @endif
     </div>
 </div>
+
+{{-- ESTILO AL RADIO PARA CONVERTIR EN ESTRELLA LOS RADIO BUTTONS PARA PUNTUACION 5 ESTRELLAS --}}
+<style>
+    .clasificacion {
+        direction: rtl;
+        unicode-bidi: bidi-override;
+    }
+
+    .clasificacion label {
+        color: gray;
+        /* background: green;   */
+    }
+
+    .clasificacion label:hover,
+    .clasificacion label:hover~label {
+        color: orange;
+    }
+
+    .clasificacion input[type="radio"]:checked~label {
+        color: orange;
+    }
+</style>
