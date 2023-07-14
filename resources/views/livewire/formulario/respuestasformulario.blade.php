@@ -99,9 +99,9 @@
                     @for ($radio = $preguntas->numerodecomponente - 1; $radio >= 0; $radio--)
                         <input style="display: none"
                             wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')"
-                            id="radio{{ $radio }}" type="radio" name="radio5Estrelas-{{ $idpregunta }}">
+                            id="radio{{ $radio }}-{{ $idpregunta }}" type="radio" name="radio5Estrelas-{{ $idpregunta }}">
                         <label class="px-3 mb-1 text-2xl font-bold md:px-6 md:text-4xl text-slate-800"
-                            for="radio{{ $radio }}">★</label>
+                            for="radio{{ $radio }}-{{ $idpregunta }}">★</label>
                     @endfor
                 </p>
             </form>
