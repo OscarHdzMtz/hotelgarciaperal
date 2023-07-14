@@ -26,7 +26,10 @@ return new class extends Migration
             $table->string('colorfondotitulo')->nullable();                                                               
             $table->string('textodespedidamodal')->nullable();
             $table->string('imagenFooter')->nullable();
+            $table->string('WidthImagenFooter')->nullable();
+            $table->string('heightImagenFooter')->nullable();            
             $table->string('textoFooter')->nullable();
+            $table->string('tamaniotextoFooter')->nullable();
             $table->string('copyright')->nullable();         
             $table->string('textoadicional')->nullable();            
             $table->string('redireccionarbotonmodal')->nullable();            

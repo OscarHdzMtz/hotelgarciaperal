@@ -94,17 +94,19 @@
             </div>
             {{-- </div> --}}
         @elseif($preguntas->tipodecomponente === 'radio5Estrellas')
-            <form>
-                <p class="mx-auto md:mx-0 clasificacion">
-                    @for ($radio = $preguntas->numerodecomponente - 1; $radio >= 0; $radio--)
-                        <input style="display: none"
-                            wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')"
-                            id="radio{{ $radio }}-{{ $idpregunta }}" type="radio" name="radio5Estrelas-{{ $idpregunta }}">
-                        <label class="px-3 mb-1 text-2xl font-bold md:px-6 md:text-4xl text-slate-800"
-                            for="radio{{ $radio }}-{{ $idpregunta }}">★</label>
-                    @endfor
-                </p>
-            </form>
+            {{-- <form> --}}
+            <p class="mx-auto md:mx-0 clasificacion">
+                @for ($radio = $preguntas->numerodecomponente - 1; $radio >= 0; $radio--)
+                    <input style="display: none"
+                        wire:click="guardarValorComponenteRadio('{{ $valorcomponenteArray[$radio] }}')"
+                        id="radio{{ $radio }}-{{ $idpregunta }}" type="radio"
+                        name="radio5Estrelas-{{ $idpregunta }}"
+                        {{ $preguntas->campoobligatorio == 1 ? 'required' : '' }}>
+                    <label class="px-3 mb-1 text-2xl font-bold md:px-6 md:text-4xl text-slate-800"
+                        for="radio{{ $radio }}-{{ $idpregunta }}">★</label>
+                @endfor
+            </p>
+            {{-- </form> --}}
         @elseif($preguntas->tipodecomponente === 'checkbox')
             <div>
                 @for ($checkbox = 0; $checkbox < $preguntas->numerodecomponente; $checkbox++)
