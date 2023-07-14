@@ -4,10 +4,10 @@
     @endif
     <div id="main">
         <div class="container mx-auto">
-            <div class="bg-red-300 rounded {{-- px-7 --}}">
+            <div class="{{-- bg-red-300 --}} bg-indigo-100 rounded">
                 <img class="mx-auto rounded" src="{{ asset('storage/' . $getDatosFormulario[0]['img']) }}" alt="">
             </div>
-            <div class="py-3 mt-3 mb-4 text-center {{-- bg-red-200 --}} bg-gray-300 rounded shadow-lg md:py-5 {{-- shadow-red-500/50 --}}">
+            <div class="py-3 mt-3 mb-4 text-center {{-- bg-red-200 --}} bg-indigo-100 rounded shadow-lg md:py-5 {{-- shadow-red-500/50 --}}">
                 <h3 class="pt-5 text-2xl font-semibold font-body text-primary dark:text-black md:text-3xl lg:text-5xl">
                     {{ $getDatosFormulario[0]['nombre'] }}
                 </h3>
@@ -20,7 +20,7 @@
         </div>
         <form wire:submit.prevent="finalizarRegistroFormulario">
             <div class="container mx-auto">
-                <div class="py-1 rounded {{-- bg-zinc-400/50 --}} bg-yellow-800/75 lg:px-8 lg:py-5">
+                <div class="py-1 rounded {{-- bg-zinc-400/50 --}} bg-indigo-100 lg:px-8 lg:py-5">
                     <div class="text-center text-red-700">
                         <strong>*</strong><small class="text-black"> Indica que la pregunta es obligatoria</small>
                     </div>

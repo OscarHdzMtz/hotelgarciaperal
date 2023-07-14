@@ -1,9 +1,9 @@
-<div class="px-5 py-5 mb-5 ml-3 mr-3 bg-indigo-100 rounded">
+<div class="px-5 py-5 mb-5 ml-3 mr-3 {{-- bg-indigo-100 --}} bg-indigo-300/60 rounded">
     <div class="container">
         <div class="flex flex-col justify-between md:flex-col">
             <div class="">
                 <a
-                    class="block text-lg font-semibold transition-colors font-body text-primary hover:text-green dark:text-black dark:hover:text-secondary">{{ $preguntas->pregunta }}
+                    class="block text-lg font-semibold transition-colors font-body text-primary hover:text-green dark:text-blue-950 dark:hover:text-secondary">{{ $preguntas->pregunta }}
                     <small class="text-lg text-red-600">{{ $preguntas->campoobligatorio == 1 ? '*' : '' }}</small></a>
             </div>
             {{-- VALIDAMOS SI VIENE DATOS CON PROMEDIO PARA MOSTRAR LA BARRA DE PORCENTAJE --}}
@@ -31,17 +31,17 @@
                 <input type="{{ $preguntas->tipodedatos }}"
                     {{ $preguntas->mindecaracteres > 0 ? 'minlength=' . $preguntas->mindecaracteres . ' ' : '' }}
                     {{ $preguntas->maxdecaracteres > 0 ? 'maxlength=' . $preguntas->maxdecaracteres . ' ' : '' }}
-                    class="bg-green-50 border border-green-500 text-black font-semibold placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-white dark:border-green-500"
+                    class="bg-green-50 border border-blue-500 text-black font-semibold placeholder-blue-700 dark:placeholder-blue-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-blue-500"
                     placeholder="Ingrese su respuesta" {{ $preguntas->campoobligatorio == 1 ? 'required' : '' }}
                     wire:model='valoresRespuesta'>
             </div>
         @elseif($preguntas->tipodecomponente === 'textarea')
             <div class="relative w-full min-w-[200px]">
                 <textarea
-                    class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-green-500 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-green-500 placeholder-shown:border-t-green-500 focus:border-2 focus:border-green-500 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                    class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-500 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-green-500 placeholder-shown:border-t-blue-500 focus:border-2 focus:border-blue-500 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" " {{ $preguntas->campoobligatorio == 1 ? 'required' : '' }} wire:model='valoresRespuesta'></textarea>
                 <label
-                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-green-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-green-500 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-green-500 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-green-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-green-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-green-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-green-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-green-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-500 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-green-500 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-green-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-green-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-green-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-green-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                     ingrese su respuesta
                 </label>
             </div>
