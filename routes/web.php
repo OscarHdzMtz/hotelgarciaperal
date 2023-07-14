@@ -4,6 +4,8 @@ use App\Http\Controllers\AddformulariosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\dashboardformularios;
+use App\Http\Controllers\DashboardformulariosController;
 use App\Http\Controllers\PreguntasformulariosController;
 
 /*
@@ -37,6 +39,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('pages.formularios.preguntasformulario', compact('id','nombre'));
     });
     
+    /* REDIRECCIONA A LA PAGINA DE DASHBORAD DONDE SE VAN A ESTAR CARGANDO GRAFICAS Y TABLAS CON LIVEWIRE */
+    Route::get('/dashboard/{id}/{nombre}', [DashboardformulariosController::class, 'create']);
+
     Route::fallback(function() {
         return view('pages/utility/404');
     });    

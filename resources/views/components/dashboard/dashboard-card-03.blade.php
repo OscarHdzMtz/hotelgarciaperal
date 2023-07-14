@@ -1,12 +1,12 @@
-<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+<div class="flex flex-col bg-white border rounded-sm shadow-lg col-span-full sm:col-span-6 xl:col-span-4 border-slate-200">
     <div class="px-5 pt-5">
-        <header class="flex justify-between items-start mb-2">
+        <header class="flex items-start justify-between mb-2">
             <!-- Icon -->
             <img src="{{ asset('images/icon-03.svg') }}" width="32" height="32" alt="Icon 02" />
             <!-- Menu button -->
             <div class="relative inline-flex" x-data="{ open: false }">
                 <button
-                    class="text-slate-400 hover:text-slate-500 rounded-full"
+                    class="rounded-full text-slate-400 hover:text-slate-500"
                     :class="{ 'bg-slate-100 text-slate-500': open }"
                     aria-haspopup="true"
                     @click.prevent="open = !open"
@@ -34,29 +34,28 @@
                 >
                     <ul>
                         <li>
-                            <a class="font-medium text-sm text-slate-600 hover:text-slate-800 flex py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Option 1</a>
+                            <a class="flex px-3 py-1 text-sm font-medium text-slate-600 hover:text-slate-800" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Option 1</a>
                         </li>
                         <li>
-                            <a class="font-medium text-sm text-slate-600 hover:text-slate-800 flex py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Option 2</a>
+                            <a class="flex px-3 py-1 text-sm font-medium text-slate-600 hover:text-slate-800" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Option 2</a>
                         </li>
                         <li>
-                            <a class="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Remove</a>
+                            <a class="flex px-3 py-1 text-sm font-medium text-rose-500 hover:text-rose-600" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Remove</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </header>
-        <h2 class="text-lg font-semibold text-slate-800 mb-2">Acme Professional</h2>
-        <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Sales</div>
+        <h2 class="mb-2 text-lg font-bold text-slate-800">{{ $titulo }}</h2>
+        {{-- <div class="mb-1 text-xs font-semibold uppercase text-slate-400">Sales</div> --}}
         <div class="flex items-start">
-            <div class="text-3xl font-bold text-slate-800 mr-2">${{ number_format($dataFeed->sumDataSet(3, 1), 0) }}</div>
-            <div class="text-sm font-semibold text-white px-1.5 bg-emerald-500 rounded-full">+29%</div>
+            <div class="mr-2 text-5xl font-bold text-slate-800">{{ $dataFeed }}</div>
+            {{-- <div class="text-sm font-semibold text-white px-1.5 bg-emerald-500 rounded-full">+29%</div> --}}
         </div>
     </div>
     <!-- Chart built with Chart.js 3 -->
     <!-- Check out src/js/components/dashboard-card-03.js for config -->
-    <div class="grow">
-        <!-- Change the height attribute to adjust the chart height -->
+    {{-- <div class="grow">        
         <canvas id="dashboard-card-03" width="389" height="128"></canvas>
-    </div>
+    </div> --}}
 </div>
