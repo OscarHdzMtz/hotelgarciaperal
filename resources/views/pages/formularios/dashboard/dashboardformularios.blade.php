@@ -44,7 +44,7 @@
             <x-dashboard.dashboard-card-03 :dataFeed="$totalDeRespuestasNoFinalizadas" titulo="Total de respuestas no finalizadas" />
 
             <!-- Bar chart (Direct vs Indirect) -->
-            <x-dashboard.dashboard-card-04 />
+            {{-- <x-dashboard.dashboard-card-04 />
 
             <!-- Line chart (Real Time Value) -->
             <x-dashboard.dashboard-card-05 />
@@ -72,7 +72,7 @@
             
             <!-- Card (Income/Expenses) -->
             <x-dashboard.dashboard-card-13 />
-
+ --}}
         </div>
 
     </div>
