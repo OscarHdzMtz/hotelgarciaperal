@@ -1,7 +1,7 @@
-<div class="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
+<div class="relative p-4 mb-8 overflow-hidden bg-indigo-200 rounded-sm sm:p-6">
 
     <!-- Background illustration -->
-    <div class="absolute right-0 top-0 -mt-4 mr-16 pointer-events-none hidden xl:block" aria-hidden="true">
+    <div class="absolute top-0 right-0 hidden mr-16 -mt-4 pointer-events-none xl:block" aria-hidden="true">
         <svg width="319" height="198" xmlns:xlink="http://www.w3.org/1999/xlink">
             <defs>
                 <path id="welcome-a" d="M64 0l64 128-64-20-64 20z" />
@@ -44,8 +44,8 @@
 
     <!-- Content -->
     <div class="relative">
-        <h1 class="text-2xl md:text-3xl text-slate-800 font-bold mb-1">Hola! {{ Auth::user()->name }} 👋</h1>
-        <p>Esto es lo que está sucediendo con sus formularios hoy:</p>
+        <h1 class="mb-1 text-2xl font-bold md:text-3xl text-slate-800"> {{ Auth::user()->name }} 👋</h1>
+        {{-- <p>Esto es lo que está sucediendo con sus formularios hoy:</p> --}}
     </div>
 
 </div>
