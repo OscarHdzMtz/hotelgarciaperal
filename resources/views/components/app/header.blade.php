@@ -1,4 +1,4 @@
-<header class="sticky top-0 bg-white border-b border-slate-200 z-30">
+<header class="sticky top-0 z-30 bg-white border-b border-slate-200">
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 -mb-px">
 
@@ -26,14 +26,14 @@
             <div class="flex items-center space-x-3">
 
                 <!-- Search Button with Modal -->
-                <x-modal-search />
+                {{-- <x-modal-search />
 
                 <!-- Notifications button -->
                 <x-dropdown-notifications align="right" />
 
                 <!-- Info button -->
                 <x-dropdown-help align="right" />
-
+ --}}
                 <!-- Divider -->
                 <hr class="w-px h-6 bg-slate-200" />
 
